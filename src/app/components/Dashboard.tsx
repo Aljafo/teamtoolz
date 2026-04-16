@@ -99,7 +99,7 @@ export function Dashboard({
   ];
 
   return (
-    <div className="flex-1 overflow-y-auto">
+    <div className="flex-1 overflow-y-auto" style={{ backgroundColor: '#FFFFF0' }}>
       <div className="p-8">
         <div className="mb-8">
           <h1 className="text-2xl font-semibold mb-2" style={{ color: '#1f2a4e' }}>Dashboard</h1>
@@ -110,7 +110,7 @@ export function Dashboard({
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div key={stat.label} className="rounded-xl p-6" style={{ backgroundColor: 'white', border: '1px solid #d4d0b8' }}>
+              <div key={stat.label} className="rounded-xl p-6" style={{ backgroundColor: '#FFFFF0', border: '1px solid #d4d0b8' }}>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm" style={{ color: '#6b7280' }}>{stat.label}</span>
                   <div className={`size-10 rounded-lg ${stat.bgColor} flex items-center justify-center`}>
@@ -149,7 +149,7 @@ export function Dashboard({
                   />
                 ))
               ) : (
-                <div className="rounded-xl p-8 text-center" style={{ backgroundColor: 'white', border: '1px solid #d4d0b8' }}>
+                <div className="rounded-xl p-8 text-center" style={{ backgroundColor: '#FFFFF0', border: '1px solid #d4d0b8' }}>
                   <p className="text-sm" style={{ color: '#6b7280' }}>No observations yet</p>
                 </div>
               )}
@@ -179,7 +179,7 @@ export function Dashboard({
                   />
                 ))
               ) : (
-                <div className="rounded-xl p-8 text-center" style={{ backgroundColor: 'white', border: '1px solid #d4d0b8' }}>
+                <div className="rounded-xl p-8 text-center" style={{ backgroundColor: '#FFFFF0', border: '1px solid #d4d0b8' }}>
                   <p className="text-sm" style={{ color: '#6b7280' }}>No active tasks</p>
                 </div>
               )}
