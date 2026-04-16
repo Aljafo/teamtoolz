@@ -109,7 +109,7 @@ export function DesktopLocationPicker({
             <button
               onClick={handleClearLocation}
               className="px-3 py-2 rounded-lg text-sm font-medium"
-              style={{ backgroundColor: '#f5f5dc', color: '#6b7280' }}
+              style={{ backgroundColor: '#FFFFF0', color: '#6b7280' }}
             >
               Clear
             </button>
@@ -149,7 +149,7 @@ export function DesktopLocationPicker({
               <button
                 onClick={handleClearLocation}
                 className="px-3 py-2 rounded-lg text-sm font-medium"
-                style={{ backgroundColor: '#f5f5dc', color: '#6b7280' }}
+                style={{ backgroundColor: '#FFFFF0', color: '#6b7280' }}
               >
                 Clear Location
               </button>

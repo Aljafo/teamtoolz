@@ -248,7 +248,7 @@ export function GanttView({
               onClick={() => setZoomLevel('day')}
               className="px-3 py-1.5 rounded-lg text-sm font-medium"
               style={{
-                backgroundColor: zoomLevel === 'day' ? '#4dd0e1' : '#f5f5dc',
+                backgroundColor: zoomLevel === 'day' ? '#4dd0e1' : '#FFFFF0',
                 color: zoomLevel === 'day' ? 'white' : '#6b7280'
               }}
             >
@@ -258,7 +258,7 @@ export function GanttView({
               onClick={() => setZoomLevel('week')}
               className="px-3 py-1.5 rounded-lg text-sm font-medium"
               style={{
-                backgroundColor: zoomLevel === 'week' ? '#4dd0e1' : '#f5f5dc',
+                backgroundColor: zoomLevel === 'week' ? '#4dd0e1' : '#FFFFF0',
                 color: zoomLevel === 'week' ? 'white' : '#6b7280'
               }}
             >
@@ -268,7 +268,7 @@ export function GanttView({
               onClick={() => setZoomLevel('month')}
               className="px-3 py-1.5 rounded-lg text-sm font-medium"
               style={{
-                backgroundColor: zoomLevel === 'month' ? '#4dd0e1' : '#f5f5dc',
+                backgroundColor: zoomLevel === 'month' ? '#4dd0e1' : '#FFFFF0',
                 color: zoomLevel === 'month' ? 'white' : '#6b7280'
               }}
             >
@@ -320,7 +320,7 @@ export function GanttView({
       <div className="flex-1 flex overflow-hidden">
         {/* Task List Column */}
         <div className="w-80 flex-shrink-0 overflow-y-auto" style={{ borderRight: '1px solid #d4d0b8', backgroundColor: 'white' }}>
-          <div className="sticky top-0 z-10 px-4 py-3 font-semibold text-sm" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: '#f5f5dc', color: '#1f2a4e' }}>
+          <div className="sticky top-0 z-10 px-4 py-3 font-semibold text-sm" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: '#FFFFF0', color: '#1f2a4e' }}>
             Task Name
           </div>
 
@@ -418,14 +418,14 @@ export function GanttView({
         <div className="flex-1 overflow-auto">
           <div className="relative" style={{ minWidth: '800px' }}>
             {/* Timeline Header */}
-            <div className="sticky top-0 z-10 flex" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: '#f5f5dc' }}>
+            <div className="sticky top-0 z-10 flex" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: '#FFFFF0' }}>
               {timelineColumns.map((date, index) => (
                 <div
                   key={index}
                   className="flex-1 px-2 py-3 text-center text-xs font-medium"
                   style={{
                     borderRight: '1px solid #d4d0b8',
-                    backgroundColor: isToday(date) ? '#e0f7fa' : '#f5f5dc',
+                    backgroundColor: isToday(date) ? '#e0f7fa' : '#FFFFF0',
                     color: isToday(date) ? '#4dd0e1' : '#6b7280',
                     minWidth: '80px'
                   }}

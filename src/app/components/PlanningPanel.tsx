@@ -161,7 +161,7 @@ export function PlanningPanel({
   });
 
   return (
-    <div className="flex-1 flex flex-col" style={{ backgroundColor: '#f5f5dc' }}>
+    <div className="flex-1 flex flex-col" style={{ backgroundColor: '#FFFFF0' }}>
       {/* Header */}
       <div className="px-8 py-6 flex items-center justify-between" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: 'white' }}>
         <div>
@@ -175,7 +175,7 @@ export function PlanningPanel({
             onClick={() => setActiveView('calendar')}
             className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors"
             style={{
-              backgroundColor: activeView === 'calendar' ? '#4dd0e1' : '#f5f5dc',
+              backgroundColor: activeView === 'calendar' ? '#4dd0e1' : '#FFFFF0',
               color: activeView === 'calendar' ? 'white' : '#6b7280'
             }}
           >
@@ -186,7 +186,7 @@ export function PlanningPanel({
             onClick={() => setActiveView('gantt')}
             className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors"
             style={{
-              backgroundColor: activeView === 'gantt' ? '#4dd0e1' : '#f5f5dc',
+              backgroundColor: activeView === 'gantt' ? '#4dd0e1' : '#FFFFF0',
               color: activeView === 'gantt' ? 'white' : '#6b7280'
             }}
           >

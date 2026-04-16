@@ -179,7 +179,7 @@ export function CalendarView({
               onClick={() => setViewMode('month')}
               className="px-3 py-1.5 rounded-lg text-sm font-medium"
               style={{
-                backgroundColor: viewMode === 'month' ? '#4dd0e1' : '#f5f5dc',
+                backgroundColor: viewMode === 'month' ? '#4dd0e1' : '#FFFFF0',
                 color: viewMode === 'month' ? 'white' : '#6b7280'
               }}
             >
@@ -189,7 +189,7 @@ export function CalendarView({
               onClick={() => setViewMode('week')}
               className="px-3 py-1.5 rounded-lg text-sm font-medium"
               style={{
-                backgroundColor: viewMode === 'week' ? '#4dd0e1' : '#f5f5dc',
+                backgroundColor: viewMode === 'week' ? '#4dd0e1' : '#FFFFF0',
                 color: viewMode === 'week' ? 'white' : '#6b7280'
               }}
             >
@@ -199,7 +199,7 @@ export function CalendarView({
               onClick={() => setViewMode('day')}
               className="px-3 py-1.5 rounded-lg text-sm font-medium"
               style={{
-                backgroundColor: viewMode === 'day' ? '#4dd0e1' : '#f5f5dc',
+                backgroundColor: viewMode === 'day' ? '#4dd0e1' : '#FFFFF0',
                 color: viewMode === 'day' ? 'white' : '#6b7280'
               }}
             >
@@ -209,7 +209,7 @@ export function CalendarView({
           <button
             onClick={goToToday}
             className="px-3 py-1.5 rounded-lg text-sm font-medium"
-            style={{ backgroundColor: '#f5f5dc', color: '#1f2a4e' }}
+            style={{ backgroundColor: '#FFFFF0', color: '#1f2a4e' }}
           >
             Today
           </button>
@@ -255,7 +255,7 @@ export function CalendarView({
                   <div
                     key={`empty-${index}`}
                     className="min-h-24 rounded-lg"
-                    style={{ backgroundColor: '#f5f5dc' }}
+                    style={{ backgroundColor: '#FFFFF0' }}
                   />
                 );
               }

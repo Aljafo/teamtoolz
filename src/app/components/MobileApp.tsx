@@ -217,7 +217,7 @@ export function MobileApp({
   const getActiveViewColor = () => {
     switch (activeView) {
       case 'my-day':
-        return '#f5f5dc'; // Ivory
+        return '#FFFFF0'; // Ivory
       case 'observations':
         return '#5b9bd5'; // Blue (matching JPEG)
       case 'tasks':
@@ -275,7 +275,7 @@ export function MobileApp({
             onClick={() => setActiveView('my-day')}
             className="flex-1 py-3 text-sm font-medium transition-all rounded-tl-2xl rounded-tr-2xl shadow-md"
             style={{
-              backgroundColor: '#f5f5dc',
+              backgroundColor: '#FFFFF0',
               color: '#1f2a4e'
             }}
           >
@@ -441,7 +441,7 @@ export function MobileApp({
                 {/* Day Label with Ivory highlight */}
                 <div
                   className="text-center py-3"
-                  style={{ backgroundColor: '#f5f5dc' }}
+                  style={{ backgroundColor: '#FFFFF0' }}
                 >
                   <div
                     className="text-base font-semibold"

@@ -25,11 +25,11 @@ export function TeamSidebar({ team, currentUser, currentView, onViewChange }: Te
     <div className="w-64 flex flex-col" style={{ backgroundColor: '#1f2a4e', borderRight: '1px solid #1e2942' }}>
       <div className="p-6" style={{ borderBottom: '1px solid #1e2942' }}>
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#f5f5dc' }}>
+          <div className="size-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#FFFFF0' }}>
             <CheckSquare className="size-5" style={{ color: '#1f2a4e' }} />
           </div>
           <div>
-            <h1 className="font-semibold" style={{ color: '#f5f5dc' }}>TaskFlow</h1>
+            <h1 className="font-semibold" style={{ color: '#FFFFF0' }}>TaskFlow</h1>
             <p className="text-sm" style={{ color: '#9ca3af' }}>Desktop</p>
           </div>
         </div>
@@ -48,7 +48,7 @@ export function TeamSidebar({ team, currentUser, currentView, onViewChange }: Te
                   className="w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors"
                   style={{
                     backgroundColor: currentView === item.id ? '#3d5a8c' : 'transparent',
-                    color: currentView === item.id ? '#f5f5dc' : '#d1d5db'
+                    color: currentView === item.id ? '#FFFFF0' : '#d1d5db'
                   }}
                 >
                   <Icon className="size-5" />
@@ -79,7 +79,7 @@ export function TeamSidebar({ team, currentUser, currentView, onViewChange }: Te
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1 text-sm font-medium" style={{ color: '#f5f5dc' }}>
+                  <div className="flex items-center gap-1 text-sm font-medium" style={{ color: '#FFFFF0' }}>
                     <span className="truncate">{member.name.split(' ')[0]}</span>
                     {member.userRole === 'admin' && (
                       <Crown className="size-3 flex-shrink-0" style={{ color: '#9c88ff' }} />
@@ -100,7 +100,7 @@ export function TeamSidebar({ team, currentUser, currentView, onViewChange }: Te
             className="size-10 rounded-full object-cover"
           />
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-1 text-sm font-medium" style={{ color: '#f5f5dc' }}>
+            <div className="flex items-center gap-1 text-sm font-medium" style={{ color: '#FFFFF0' }}>
               <span className="truncate">{currentUser.name}</span>
               {currentUser.userRole === 'admin' && (
                 <Crown className="size-3 flex-shrink-0" style={{ color: '#9c88ff' }} />

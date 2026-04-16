@@ -95,7 +95,7 @@ export function ChatPanel({
   }
 
   return (
-    <div className="flex-1 flex flex-col" style={{ backgroundColor: '#f5f5dc' }}>
+    <div className="flex-1 flex flex-col" style={{ backgroundColor: '#FFFFF0' }}>
       <div className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: 'white' }}>
         <div>
           <h2 className="font-semibold" style={{ color: '#1f2a4e' }}>Observations</h2>

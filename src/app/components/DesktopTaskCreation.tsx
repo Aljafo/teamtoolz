@@ -389,7 +389,7 @@ export function DesktopTaskCreation({
                 onClick={() => setAssignmentType('person')}
                 className="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                 style={{
-                  backgroundColor: assignmentType === 'person' ? '#4dd0e1' : '#f5f5dc',
+                  backgroundColor: assignmentType === 'person' ? '#4dd0e1' : '#FFFFF0',
                   color: assignmentType === 'person' ? 'white' : '#6b7280'
                 }}
               >
@@ -399,7 +399,7 @@ export function DesktopTaskCreation({
                 onClick={() => setAssignmentType('team')}
                 className="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                 style={{
-                  backgroundColor: assignmentType === 'team' ? '#9c88ff' : '#f5f5dc',
+                  backgroundColor: assignmentType === 'team' ? '#9c88ff' : '#FFFFF0',
                   color: assignmentType === 'team' ? 'white' : '#6b7280'
                 }}
               >
@@ -409,7 +409,7 @@ export function DesktopTaskCreation({
                 onClick={() => setAssignmentType('external')}
                 className="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                 style={{
-                  backgroundColor: assignmentType === 'external' ? '#f59e0b' : '#f5f5dc',
+                  backgroundColor: assignmentType === 'external' ? '#f59e0b' : '#FFFFF0',
                   color: assignmentType === 'external' ? 'white' : '#6b7280'
                 }}
               >
@@ -419,7 +419,7 @@ export function DesktopTaskCreation({
                 onClick={() => setAssignmentType('unassigned')}
                 className="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                 style={{
-                  backgroundColor: assignmentType === 'unassigned' ? '#6b7280' : '#f5f5dc',
+                  backgroundColor: assignmentType === 'unassigned' ? '#6b7280' : '#FFFFF0',
                   color: assignmentType === 'unassigned' ? 'white' : '#6b7280'
                 }}
               >
@@ -483,7 +483,7 @@ export function DesktopTaskCreation({
             )}
 
             {assignmentType === 'unassigned' && (
-              <div className="text-center py-6 rounded-lg" style={{ backgroundColor: '#f5f5dc' }}>
+              <div className="text-center py-6 rounded-lg" style={{ backgroundColor: '#FFFFF0' }}>
                 <p className="text-sm" style={{ color: '#6b7280' }}>
                   Task will be available for team members to claim
                 </p>
