@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Camera, Send, User, Users, ArrowLeft, ChevronLeft, ChevronRight, Plus, Eye, Check, X, UsersRound } from 'lucide-react';
+import { Camera, Send, User, Users, ArrowLeft, ChevronLeft, ChevronRight, Plus, Eye, Check, X, UsersRound, CheckSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { Observation, Task, TeamMember, Category, Team, Message, Location, Subcategory, RecurrencePattern } from '../App';
 import { MobileTaskDetail } from './MobileTaskDetail';
@@ -8,7 +8,6 @@ import { MobileGlobalChat } from './MobileGlobalChat';
 import { MobileContacts } from './MobileContacts';
 import { MobileTaskCreation } from './MobileTaskCreation';
 import { MobileLocationPicker } from './MobileLocationPicker';
-import { MobileLayeredIcon } from './MobileLayeredIcon';
 
 interface MobileAppProps {
   observations: Observation[];
@@ -250,10 +249,7 @@ export function MobileApp({
               onClick={() => setShowContacts(true)}
               className="relative p-2 active:opacity-70 transition-opacity"
             >
-              {/* Purple icon as background layer */}
-              <UsersRound className="size-8 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ color: '#9c88ff', opacity: 0.7 }} />
-              {/* Cyan icon as foreground layer */}
-              <UsersRound className="size-8 relative" style={{ color: '#4dd0e1' }} />
+              <UsersRound className="size-8 text-white" />
               {/* Notification badge */}
               {(hasUnreadFromContacts || unreadGlobalCount > 0) && (
                 <div className="absolute -top-1 -right-1 size-6 bg-red-600 rounded-full flex items-center justify-center z-20 border-2 border-[#2c3e72]">
@@ -311,7 +307,7 @@ export function MobileApp({
             <div className="flex-1 flex flex-col bg-white">
               <div className="px-4 py-3 flex items-center justify-between border-b border-neutral-100">
                 <button onClick={() => setShowRecipientSelection(false)} className="flex items-center gap-2 text-neutral-700">
-                  <MobileLayeredIcon Icon={ArrowLeft} size={20} />
+                  <ArrowLeft className="size-5" />
                   <span>Back</span>
                 </button>
                 <span className="font-medium">Send To</span>
@@ -354,7 +350,7 @@ export function MobileApp({
                   disabled={!selectedRecipient}
                   className="w-full bg-blue-600 text-white py-3 rounded-xl font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <MobileLayeredIcon Icon={Send} size={20} />
+                  <Send className="size-5" />
                   Submit to {selectedRecipient?.name || 'Select Contact'}
                 </button>
               </div>
@@ -366,7 +362,7 @@ export function MobileApp({
                   setCapturedPhoto(null);
                   setMessage('');
                 }} className="flex items-center gap-2 text-neutral-700">
-                  <MobileLayeredIcon Icon={ArrowLeft} size={20} />
+                  <ArrowLeft className="size-5" />
                   <span>Retake</span>
                 </button>
                 <span className="font-medium">New Observation</span>
@@ -387,7 +383,7 @@ export function MobileApp({
                   onClick={handleProceedToRecipientSelection}
                   className="w-full bg-blue-600 text-white py-3 rounded-xl font-medium flex items-center justify-center gap-2"
                 >
-                  <MobileLayeredIcon Icon={Send} size={20} />
+                  <Send className="size-5" />
                   Next: Choose Recipient
                 </button>
               </div>
@@ -407,7 +403,7 @@ export function MobileApp({
                 }}
                 className="absolute top-4 left-4 size-10 bg-white/20 rounded-full flex items-center justify-center text-white"
               >
-                <MobileLayeredIcon Icon={ArrowLeft} size={20} />
+                <ArrowLeft className="size-5" />
               </button>
               <input
                 ref={fileInputRef}
@@ -417,14 +413,14 @@ export function MobileApp({
                 onChange={handlePhotoCapture}
                 className="hidden"
               />
-              <MobileLayeredIcon Icon={Camera} size={96} />
+              <Camera className="size-24 text-white mb-6" />
               <h3 className="text-xl font-semibold text-white mb-2">Capture Observation</h3>
               <p className="text-neutral-400 text-center mb-8">Take a photo of what you see in the field</p>
               <button
                 onClick={() => fileInputRef.current?.click()}
                 className="bg-white text-neutral-900 px-8 py-4 rounded-full font-medium flex items-center gap-3"
               >
-                <MobileLayeredIcon Icon={Camera} size={20} />
+                <Camera className="size-5" />
                 Take Photo
               </button>
             </div>
@@ -805,7 +801,7 @@ export function MobileApp({
           onClick={() => setShowActionMenu(true)}
           className="absolute bottom-16 right-6 size-14 bg-blue-600 rounded-full flex items-center justify-center shadow-xl z-50"
         >
-          <MobileLayeredIcon Icon={Plus} size={32} />
+          <Plus className="size-8 text-white stroke-[3]" />
         </button>
       )}
 
@@ -817,7 +813,7 @@ export function MobileApp({
               onClick={() => navigateDay('prev')}
               className="absolute left-2 top-1/2 -translate-y-1/2 size-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white z-40"
             >
-              <MobileLayeredIcon Icon={ChevronLeft} size={24} />
+              <ChevronLeft className="size-6" />
             </button>
           )}
           {currentDay !== 'tomorrow' && (
@@ -825,7 +821,7 @@ export function MobileApp({
               onClick={() => navigateDay('next')}
               className="absolute right-2 top-1/2 -translate-y-1/2 size-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white z-40"
             >
-              <MobileLayeredIcon Icon={ChevronRight} size={24} />
+              <ChevronRight className="size-6" />
             </button>
           )}
         </>
@@ -980,7 +976,7 @@ export function MobileApp({
                     className="aspect-square rounded-2xl flex flex-col items-center justify-center gap-3 active:opacity-70 transition-opacity shadow-lg"
                     style={{ backgroundColor: '#5b9bd5' }}
                   >
-                    <MobileLayeredIcon Icon={Eye} size={48} />
+                    <Camera className="size-12 text-white" />
                     <span className="text-white font-semibold text-sm">New Observation</span>
                   </button>
 
@@ -993,7 +989,7 @@ export function MobileApp({
                     className="aspect-square rounded-2xl flex flex-col items-center justify-center gap-3 active:opacity-70 transition-opacity shadow-lg"
                     style={{ backgroundColor: '#4dd0e1' }}
                   >
-                    <MobileLayeredIcon Icon={Check} size={48} />
+                    <CheckSquare className="size-12 text-white" />
                     <span className="text-white font-semibold text-sm">New Task</span>
                   </button>
                 </div>
@@ -1004,7 +1000,7 @@ export function MobileApp({
                     onClick={() => setShowActionMenu(false)}
                     className="aspect-square bg-neutral-500 rounded-2xl flex flex-col items-center justify-center gap-3 active:opacity-70 transition-opacity shadow-lg"
                   >
-                    <MobileLayeredIcon Icon={X} size={48} />
+                    <X className="size-12 text-white" />
                     <span className="text-white font-semibold text-sm">Cancel</span>
                   </button>
                 </div>

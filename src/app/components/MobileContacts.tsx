@@ -1,7 +1,6 @@
 import { ArrowLeft, Search, Phone, MessageSquare, Plus, User, Users, UsersRound } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { TeamMember, Message, Team } from '../App';
-import { MobileLayeredIcon } from './MobileLayeredIcon';
 
 interface MobileContactsProps {
   team: TeamMember[];
@@ -127,7 +126,7 @@ export function MobileContacts({
             onClick={onBack}
             className="relative p-2 active:opacity-70 transition-opacity"
           >
-            <MobileLayeredIcon Icon={UsersRound} size={32} />
+            <UsersRound className="size-8 text-white" />
           </button>
         </div>
 
@@ -160,7 +159,7 @@ export function MobileContacts({
       <div className="px-4 py-4 flex items-center justify-between">
         <h1 className="text-xl font-semibold text-white">Contacts</h1>
         <button className="size-9 flex items-center justify-center rounded-full hover:bg-white/10">
-          <MobileLayeredIcon Icon={Search} size={24} />
+          <Search className="size-6 text-white" />
         </button>
       </div>
 
@@ -195,13 +194,13 @@ export function MobileContacts({
                       onClick={() => onCallContact(contact)}
                       className="size-10 flex items-center justify-center"
                     >
-                      <MobileLayeredIcon Icon={Phone} size={24} />
+                      <Phone className="size-6 text-[#4dd0e1]" />
                     </button>
                     <button
                       onClick={() => onMessageContact(contact)}
                       className="size-10 flex items-center justify-center relative"
                     >
-                      <MobileLayeredIcon Icon={MessageSquare} size={24} />
+                      <MessageSquare className="size-6 text-[#4dd0e1]" fill="#4dd0e1" />
                       {unreadCount > 0 && (
                         <span className="absolute -top-1 -right-1 size-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                           {unreadCount}
@@ -238,7 +237,7 @@ export function MobileContacts({
                       onClick={() => onMessageTeam(teamObj)}
                       className="size-10 flex items-center justify-center relative"
                     >
-                      <MobileLayeredIcon Icon={MessageSquare} size={24} primaryColor="#9c88ff" secondaryColor="#4dd0e1" />
+                      <MessageSquare className="size-6 text-[#9c88ff]" fill="#9c88ff" />
                       {unreadCount > 0 && (
                         <span className="absolute -top-1 -right-1 size-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                           {unreadCount}
@@ -254,7 +253,7 @@ export function MobileContacts({
 
         {/* Add Contact FAB */}
         <button className="absolute bottom-6 right-6 size-14 bg-blue-600 rounded-full flex items-center justify-center shadow-xl">
-          <MobileLayeredIcon Icon={Plus} size={32} />
+          <Plus className="size-8 text-white stroke-[3]" />
         </button>
       </div>
 

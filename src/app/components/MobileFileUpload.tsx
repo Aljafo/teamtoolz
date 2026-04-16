@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import { Camera, Image as ImageIcon, FileText, Video, X, Paperclip } from 'lucide-react';
 import type { Attachment, TeamMember } from '../App';
 import { processSingleDocument } from '../utils/documentScanner';
-import { MobileLayeredIcon } from './MobileLayeredIcon';
 
 interface MobileFileUploadProps {
   attachments: Attachment[];
@@ -77,7 +76,7 @@ export function MobileFileUpload({
           disabled={processing}
           className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg font-medium active:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <MobileLayeredIcon Icon={Camera} size={20} />
+          <Camera className="size-5" />
           <span className="text-sm">{processing ? 'Processing...' : 'Camera'}</span>
         </button>
         <button
