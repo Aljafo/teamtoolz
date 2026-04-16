@@ -1,16 +1,17 @@
-import { LayoutDashboard, CheckSquare, Camera, Users, Tag, UsersRound, MessageSquare, UserCog, Crown } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, Camera, Users, Tag, UsersRound, MessageSquare, UserCog, Crown, Calendar } from 'lucide-react';
 import type { TeamMember } from '../App';
 
 interface TeamSidebarProps {
   team: TeamMember[];
   currentUser: TeamMember;
-  currentView: 'dashboard' | 'tasks' | 'observations' | 'team' | 'categories' | 'teams' | 'chat' | 'users';
-  onViewChange: (view: 'dashboard' | 'tasks' | 'observations' | 'team' | 'categories' | 'teams' | 'chat' | 'users') => void;
+  currentView: 'dashboard' | 'tasks' | 'observations' | 'team' | 'categories' | 'teams' | 'chat' | 'users' | 'planning';
+  onViewChange: (view: 'dashboard' | 'tasks' | 'observations' | 'team' | 'categories' | 'teams' | 'chat' | 'users' | 'planning') => void;
 }
 
 export function TeamSidebar({ team, currentUser, currentView, onViewChange }: TeamSidebarProps) {
   const navItems = [
     { id: 'dashboard' as const, label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'planning' as const, label: 'Planning', icon: Calendar },
     { id: 'tasks' as const, label: 'Tasks', icon: CheckSquare },
     { id: 'observations' as const, label: 'Observations', icon: Camera },
     { id: 'chat' as const, label: 'Chat', icon: MessageSquare },

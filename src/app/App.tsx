@@ -8,6 +8,7 @@ import { Teams } from './components/Teams';
 import { GlobalChatPanel } from './components/GlobalChatPanel';
 import { EmailPreview } from './components/EmailPreview';
 import { Users } from './components/Users';
+import { PlanningPanel } from './components/PlanningPanel';
 import { DesktopLanding } from './components/DesktopLanding';
 import { DesktopLogin } from './components/DesktopLogin';
 import { DesktopSignup, type SignupData } from './components/DesktopSignup';
@@ -246,7 +247,7 @@ export default function App() {
 
   const [currentOrganization, setCurrentOrganization] = useState<Organization | null>(null);
   const [currentUser, setCurrentUser] = useState<TeamMember | null>(null);
-  const [currentView, setCurrentView] = useState<'dashboard' | 'tasks' | 'observations' | 'team' | 'categories' | 'teams' | 'chat' | 'users'>('dashboard');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'tasks' | 'observations' | 'team' | 'categories' | 'teams' | 'chat' | 'users' | 'planning'>('dashboard');
   const [categories, setCategories] = useState<Category[]>(mockCategories);
   const [subcategories, setSubcategories] = useState<Subcategory[]>(mockSubcategories);
   const [teams, setTeams] = useState<Team[]>(mockTeams);
@@ -1314,6 +1315,24 @@ export default function App() {
                 messages={messages}
                 currentUser={currentUser}
                 onAddTask={addTask}
+                onUpdateAssignment={updateTaskAssignment}
+                onUpdateStatus={updateTaskStatus}
+                onSendMessage={addMessage}
+                onMarkMessagesAsRead={markMessagesAsRead}
+                onAddAttachment={addAttachmentToTask}
+                onRemoveAttachment={removeAttachmentFromTask}
+              />
+            )}
+
+            {currentView === 'planning' && (
+              <PlanningPanel
+                tasks={tasks}
+                team={mockTeam}
+                teams={teams}
+                categories={categories}
+                subcategories={subcategories}
+                messages={messages}
+                currentUser={currentUser}
                 onUpdateAssignment={updateTaskAssignment}
                 onUpdateStatus={updateTaskStatus}
                 onSendMessage={addMessage}
