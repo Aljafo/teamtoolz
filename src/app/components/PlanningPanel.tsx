@@ -40,13 +40,123 @@ export function PlanningPanel({
   const [activeView, setActiveView] = useState<PlanningView>('calendar');
   const [filterStatus, setFilterStatus] = useState<Task['status'] | 'all'>('all');
   const [filterCategory, setFilterCategory] = useState<string>('all');
+  const [filterAssignee, setFilterAssignee] = useState<string>('all');
+  const [filterTeam, setFilterTeam] = useState<string>('all');
+  const [filterDateRange, setFilterDateRange] = useState<'all' | 'overdue' | 'today' | 'week' | 'month'>('all');
   const [showCompleted, setShowCompleted] = useState(true);
+  const [expandRecurring, setExpandRecurring] = useState(false);
+
+  // Helper function for date range filtering
+  const isInDateRange = (task: Task) => {
+    if (filterDateRange === 'all') return true;
+
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+
+    const taskDate = task.startDate ? new Date(task.startDate) : task.endDate ? new Date(task.endDate) : null;
+    if (!taskDate) return false;
+
+    taskDate.setHours(0, 0, 0, 0);
+
+    if (filterDateRange === 'overdue') {
+      return taskDate < now && task.status !== 'completed';
+    } else if (filterDateRange === 'today') {
+      return taskDate.getTime() === now.getTime();
+    } else if (filterDateRange === 'week') {
+      const weekFromNow = new Date(now);
+      weekFromNow.setDate(weekFromNow.getDate() + 7);
+      return taskDate >= now && taskDate <= weekFromNow;
+    } else if (filterDateRange === 'month') {
+      const monthFromNow = new Date(now);
+      monthFromNow.setMonth(monthFromNow.getMonth() + 1);
+      return taskDate >= now && taskDate <= monthFromNow;
+    }
+
+    return true;
+  };
+
+  // Expand recurring tasks into individual instances
+  const expandRecurringTasks = (tasksToExpand: Task[]): Task[] => {
+    if (!expandRecurring) return tasksToExpand;
+
+    const expandedTasks: Task[] = [];
+
+    tasksToExpand.forEach(task => {
+      if (!task.isRecurring || !task.recurrencePattern || !task.startDate) {
+        expandedTasks.push(task);
+        return;
+      }
+
+      const { type, interval, endType, occurrences, endDate } = task.recurrencePattern;
+      const startDate = new Date(task.startDate);
+      const taskEndDate = task.endDate ? new Date(task.endDate) : null;
+      const duration = taskEndDate ? taskEndDate.getTime() - startDate.getTime() : 0;
+
+      let currentDate = new Date(startDate);
+      let occurrenceCount = 0;
+      const maxOccurrences = endType === 'after' ? occurrences : 100; // Limit to 100 for performance
+      const recurrenceEndDate = endType === 'on' && endDate ? new Date(endDate) : null;
+
+      while (occurrenceCount < maxOccurrences) {
+        if (recurrenceEndDate && currentDate > recurrenceEndDate) break;
+
+        const instanceStartDate = new Date(currentDate);
+        const instanceEndDate = taskEndDate ? new Date(currentDate.getTime() + duration) : null;
+
+        expandedTasks.push({
+          ...task,
+          id: `${task.id}-occurrence-${occurrenceCount}`,
+          startDate: instanceStartDate,
+          endDate: instanceEndDate,
+          title: `${task.title} (${occurrenceCount + 1})`,
+        });
+
+        occurrenceCount++;
+        if (endType === 'never' && occurrenceCount >= 100) break;
+
+        // Calculate next occurrence
+        if (type === 'daily') {
+          currentDate.setDate(currentDate.getDate() + interval);
+        } else if (type === 'weekly') {
+          currentDate.setDate(currentDate.getDate() + (interval * 7));
+        } else if (type === 'monthly') {
+          currentDate.setMonth(currentDate.getMonth() + interval);
+        }
+      }
+    });
+
+    return expandedTasks;
+  };
 
   // Filter tasks based on current filters
-  const filteredTasks = tasks.filter(task => {
+  const filteredTasks = expandRecurringTasks(tasks).filter(task => {
     if (filterStatus !== 'all' && task.status !== filterStatus) return false;
     if (filterCategory !== 'all' && task.categoryId !== filterCategory) return false;
     if (!showCompleted && task.status === 'completed') return false;
+
+    // Assignee filter
+    if (filterAssignee !== 'all') {
+      if (filterAssignee === 'unassigned') {
+        if (task.assignedTo || task.assignedToTeamId || task.assignedToExternal) return false;
+      } else {
+        const matchesMember = task.assignedTo?.id === filterAssignee;
+        const matchesExternal = task.assignedToExternal === filterAssignee;
+        if (!matchesMember && !matchesExternal) return false;
+      }
+    }
+
+    // Team filter
+    if (filterTeam !== 'all') {
+      if (filterTeam === 'noteam') {
+        if (task.assignedToTeamId) return false;
+      } else {
+        if (task.assignedToTeamId !== filterTeam) return false;
+      }
+    }
+
+    // Date range filter
+    if (!isInDateRange(task)) return false;
+
     return true;
   });
 
@@ -87,14 +197,14 @@ export function PlanningPanel({
       </div>
 
       {/* Filters */}
-      <div className="px-8 py-4 flex items-center gap-4" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: 'white' }}>
+      <div className="px-8 py-4 flex flex-wrap items-center gap-4" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: 'white' }}>
         <div className="flex items-center gap-2">
           <label className="text-sm font-medium" style={{ color: '#2c3e72' }}>Status:</label>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value as Task['status'] | 'all')}
             className="px-3 py-1.5 rounded-lg text-sm"
-            style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+            style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
           >
             <option value="all">All Statuses</option>
             <option value="pending">Pending</option>
@@ -109,7 +219,7 @@ export function PlanningPanel({
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
             className="px-3 py-1.5 rounded-lg text-sm"
-            style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+            style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
           >
             <option value="all">All Categories</option>
             {categories.map(category => (
@@ -117,6 +227,67 @@ export function PlanningPanel({
             ))}
           </select>
         </div>
+
+        <div className="flex items-center gap-2">
+          <label className="text-sm font-medium" style={{ color: '#2c3e72' }}>Assignee:</label>
+          <select
+            value={filterAssignee}
+            onChange={(e) => setFilterAssignee(e.target.value)}
+            className="px-3 py-1.5 rounded-lg text-sm"
+            style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
+          >
+            <option value="all">All Assignees</option>
+            <option value="unassigned">Unassigned</option>
+            {team.map(member => (
+              <option key={member.id} value={member.id}>{member.name}</option>
+            ))}
+            {Array.from(new Set(tasks.filter(t => t.assignedToExternal).map(t => t.assignedToExternal))).map(external => (
+              <option key={external} value={external}>{external}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <label className="text-sm font-medium" style={{ color: '#2c3e72' }}>Team:</label>
+          <select
+            value={filterTeam}
+            onChange={(e) => setFilterTeam(e.target.value)}
+            className="px-3 py-1.5 rounded-lg text-sm"
+            style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
+          >
+            <option value="all">All Teams</option>
+            <option value="noteam">No Team</option>
+            {teams.map(team => (
+              <option key={team.id} value={team.id}>{team.name}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <label className="text-sm font-medium" style={{ color: '#2c3e72' }}>Date Range:</label>
+          <select
+            value={filterDateRange}
+            onChange={(e) => setFilterDateRange(e.target.value as typeof filterDateRange)}
+            className="px-3 py-1.5 rounded-lg text-sm"
+            style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
+          >
+            <option value="all">All Dates</option>
+            <option value="overdue">Overdue</option>
+            <option value="today">Today</option>
+            <option value="week">Next 7 Days</option>
+            <option value="month">Next 30 Days</option>
+          </select>
+        </div>
+
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={expandRecurring}
+            onChange={(e) => setExpandRecurring(e.target.checked)}
+            className="size-4"
+          />
+          <span className="text-sm font-medium" style={{ color: '#2c3e72' }}>Expand recurring</span>
+        </label>
 
         <label className="flex items-center gap-2 ml-auto">
           <input

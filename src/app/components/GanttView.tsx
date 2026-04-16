@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, ArrowUpDown } from 'lucide-react';
 import type { Task, TeamMember, Category, Team, Message, Subcategory } from '../App';
 import { TaskDetailModal } from './TaskDetailModal';
 
@@ -20,6 +20,8 @@ interface GanttViewProps {
 }
 
 type ZoomLevel = 'day' | 'week' | 'month';
+type GroupBy = 'none' | 'category' | 'assignee' | 'team' | 'status';
+type SortBy = 'startDate' | 'endDate' | 'status' | 'title';
 
 export function GanttView({
   tasks,
@@ -39,10 +41,99 @@ export function GanttView({
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [zoomLevel, setZoomLevel] = useState<ZoomLevel>('week');
   const [timelineStart, setTimelineStart] = useState(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
+  const [groupBy, setGroupBy] = useState<GroupBy>('none');
+  const [sortBy, setSortBy] = useState<SortBy>('startDate');
+  const [sortAscending, setSortAscending] = useState(true);
 
   // Separate tasks into scheduled and unscheduled
-  const scheduledTasks = tasks.filter(t => t.startDate || t.endDate);
-  const unscheduledTasks = tasks.filter(t => !t.startDate && !t.endDate);
+  let scheduledTasks = tasks.filter(t => t.startDate || t.endDate);
+  let unscheduledTasks = tasks.filter(t => !t.startDate && !t.endDate);
+
+  // Sort tasks
+  const sortTasks = (tasksToSort: Task[]) => {
+    return [...tasksToSort].sort((a, b) => {
+      let comparison = 0;
+
+      if (sortBy === 'startDate') {
+        const aDate = a.startDate ? new Date(a.startDate).getTime() : Infinity;
+        const bDate = b.startDate ? new Date(b.startDate).getTime() : Infinity;
+        comparison = aDate - bDate;
+      } else if (sortBy === 'endDate') {
+        const aDate = a.endDate ? new Date(a.endDate).getTime() : Infinity;
+        const bDate = b.endDate ? new Date(b.endDate).getTime() : Infinity;
+        comparison = aDate - bDate;
+      } else if (sortBy === 'status') {
+        const statusOrder = { 'pending': 0, 'in-progress': 1, 'completed': 2 };
+        comparison = statusOrder[a.status] - statusOrder[b.status];
+      } else if (sortBy === 'title') {
+        comparison = a.title.localeCompare(b.title);
+      }
+
+      return sortAscending ? comparison : -comparison;
+    });
+  };
+
+  scheduledTasks = sortTasks(scheduledTasks);
+  unscheduledTasks = sortTasks(unscheduledTasks);
+
+  // Group tasks
+  const groupTasks = (tasksToGroup: Task[]) => {
+    if (groupBy === 'none') {
+      return [{ name: 'All Tasks', tasks: tasksToGroup, color: undefined }];
+    }
+
+    const groups: { name: string; tasks: Task[]; color?: string }[] = [];
+
+    if (groupBy === 'category') {
+      const categoryMap = new Map<string, Task[]>();
+      tasksToGroup.forEach(task => {
+        const category = categories.find(c => c.id === task.categoryId);
+        const key = category?.name || 'Uncategorized';
+        if (!categoryMap.has(key)) categoryMap.set(key, []);
+        categoryMap.get(key)!.push(task);
+      });
+      categoryMap.forEach((tasks, name) => {
+        const category = categories.find(c => c.name === name);
+        groups.push({ name, tasks, color: category?.color });
+      });
+    } else if (groupBy === 'assignee') {
+      const assigneeMap = new Map<string, Task[]>();
+      tasksToGroup.forEach(task => {
+        const key = task.assignedTo?.name || task.assignedToExternal || 'Unassigned';
+        if (!assigneeMap.has(key)) assigneeMap.set(key, []);
+        assigneeMap.get(key)!.push(task);
+      });
+      assigneeMap.forEach((tasks, name) => {
+        groups.push({ name, tasks });
+      });
+    } else if (groupBy === 'team') {
+      const teamMap = new Map<string, Task[]>();
+      tasksToGroup.forEach(task => {
+        const taskTeam = task.assignedToTeamId ? teams.find(t => t.id === task.assignedToTeamId) : null;
+        const key = taskTeam?.name || 'No Team';
+        if (!teamMap.has(key)) teamMap.set(key, []);
+        teamMap.get(key)!.push(task);
+      });
+      teamMap.forEach((tasks, name) => {
+        groups.push({ name, tasks });
+      });
+    } else if (groupBy === 'status') {
+      const statusMap = new Map<string, Task[]>();
+      tasksToGroup.forEach(task => {
+        const key = task.status === 'in-progress' ? 'In Progress' : task.status.charAt(0).toUpperCase() + task.status.slice(1);
+        if (!statusMap.has(key)) statusMap.set(key, []);
+        statusMap.get(key)!.push(task);
+      });
+      statusMap.forEach((tasks, name) => {
+        groups.push({ name, tasks });
+      });
+    }
+
+    return groups;
+  };
+
+  const groupedScheduledTasks = groupTasks(scheduledTasks);
+  const groupedUnscheduledTasks = groupTasks(unscheduledTasks);
 
   // Calculate timeline range
   const getTimelineRange = useMemo(() => {
@@ -147,11 +238,12 @@ export function GanttView({
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Controls */}
-      <div className="px-8 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: 'white' }}>
-        <div className="flex items-center gap-4">
-          <h3 className="text-lg font-semibold" style={{ color: '#2c3e72' }}>Timeline</h3>
+      <div className="px-8 py-4 flex items-center justify-between gap-6" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: 'white' }}>
+        <h3 className="text-lg font-semibold" style={{ color: '#2c3e72' }}>Timeline</h3>
+
+        <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
-            <span className="text-sm" style={{ color: '#6b7280' }}>Zoom:</span>
+            <span className="text-sm font-medium" style={{ color: '#6b7280' }}>Zoom:</span>
             <button
               onClick={() => setZoomLevel('day')}
               className="px-3 py-1.5 rounded-lg text-sm font-medium"
@@ -183,6 +275,44 @@ export function GanttView({
               Month
             </button>
           </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium" style={{ color: '#6b7280' }}>Group by:</span>
+            <select
+              value={groupBy}
+              onChange={(e) => setGroupBy(e.target.value as GroupBy)}
+              className="px-3 py-1.5 rounded-lg text-sm"
+              style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
+            >
+              <option value="none">None</option>
+              <option value="category">Category</option>
+              <option value="assignee">Assignee</option>
+              <option value="team">Team</option>
+              <option value="status">Status</option>
+            </select>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium" style={{ color: '#6b7280' }}>Sort by:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortBy)}
+              className="px-3 py-1.5 rounded-lg text-sm"
+              style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
+            >
+              <option value="startDate">Start Date</option>
+              <option value="endDate">End Date</option>
+              <option value="status">Status</option>
+              <option value="title">Title</option>
+            </select>
+            <button
+              onClick={() => setSortAscending(!sortAscending)}
+              className="p-1.5 rounded-lg hover:bg-neutral-100"
+              title={sortAscending ? 'Ascending' : 'Descending'}
+            >
+              <ArrowUpDown className="size-4" style={{ color: '#6b7280', transform: sortAscending ? 'none' : 'scaleY(-1)' }} />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -195,41 +325,29 @@ export function GanttView({
           </div>
 
           {/* Scheduled Tasks */}
-          {scheduledTasks.map(task => {
-            const assignedTeam = task.assignedToTeamId ? teams.find(t => t.id === task.assignedToTeamId) : null;
-            return (
-              <div
-                key={task.id}
-                className="px-4 py-3 flex items-center gap-3 hover:bg-neutral-50 cursor-pointer"
-                style={{ borderBottom: '1px solid #f3f4f6' }}
-                onClick={() => setSelectedTask(task)}
-              >
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium truncate" style={{ color: '#2c3e72' }}>
-                    {task.title}
-                  </div>
-                  <div className="text-xs truncate" style={{ color: '#6b7280' }}>
-                    {task.assignedTo?.name || assignedTeam?.name || task.assignedToExternal || 'Unassigned'}
-                  </div>
+          {groupedScheduledTasks.map((group, groupIndex) => (
+            <div key={`scheduled-group-${groupIndex}`}>
+              {groupBy !== 'none' && (
+                <div
+                  className="sticky px-4 py-2 text-xs font-semibold uppercase tracking-wide"
+                  style={{
+                    borderBottom: '1px solid #d4d0b8',
+                    backgroundColor: group.color || '#e8e6d5',
+                    color: group.color ? 'white' : '#2c3e72',
+                    top: '45px',
+                    zIndex: 9
+                  }}
+                >
+                  {group.name} ({group.tasks.length})
                 </div>
-                <div className={`size-2 rounded-full`} style={{ backgroundColor: getTaskBarColor(task) }} />
-              </div>
-            );
-          })}
-
-          {/* Unscheduled Section */}
-          {unscheduledTasks.length > 0 && (
-            <>
-              <div className="sticky px-4 py-3 font-semibold text-sm" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: '#fef3c7', color: '#92400e' }}>
-                Unscheduled ({unscheduledTasks.length})
-              </div>
-              {unscheduledTasks.map(task => {
+              )}
+              {group.tasks.map(task => {
                 const assignedTeam = task.assignedToTeamId ? teams.find(t => t.id === task.assignedToTeamId) : null;
                 return (
                   <div
                     key={task.id}
                     className="px-4 py-3 flex items-center gap-3 hover:bg-neutral-50 cursor-pointer"
-                    style={{ borderBottom: '1px solid #f3f4f6', backgroundColor: '#fffbeb' }}
+                    style={{ borderBottom: '1px solid #f3f4f6' }}
                     onClick={() => setSelectedTask(task)}
                   >
                     <div className="flex-1 min-w-0">
@@ -244,6 +362,54 @@ export function GanttView({
                   </div>
                 );
               })}
+            </div>
+          ))}
+
+          {/* Unscheduled Section */}
+          {unscheduledTasks.length > 0 && (
+            <>
+              <div className="sticky px-4 py-3 font-semibold text-sm" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: '#fef3c7', color: '#92400e', top: '0', zIndex: 10 }}>
+                Unscheduled ({unscheduledTasks.length})
+              </div>
+              {groupedUnscheduledTasks.map((group, groupIndex) => (
+                <div key={`unscheduled-group-${groupIndex}`}>
+                  {groupBy !== 'none' && (
+                    <div
+                      className="sticky px-4 py-2 text-xs font-semibold uppercase tracking-wide"
+                      style={{
+                        borderBottom: '1px solid #d4d0b8',
+                        backgroundColor: group.color ? `${group.color}dd` : '#fde68a',
+                        color: group.color ? 'white' : '#92400e',
+                        top: '45px',
+                        zIndex: 9
+                      }}
+                    >
+                      {group.name} ({group.tasks.length})
+                    </div>
+                  )}
+                  {group.tasks.map(task => {
+                    const assignedTeam = task.assignedToTeamId ? teams.find(t => t.id === task.assignedToTeamId) : null;
+                    return (
+                      <div
+                        key={task.id}
+                        className="px-4 py-3 flex items-center gap-3 hover:bg-neutral-50 cursor-pointer"
+                        style={{ borderBottom: '1px solid #f3f4f6', backgroundColor: '#fffbeb' }}
+                        onClick={() => setSelectedTask(task)}
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium truncate" style={{ color: '#2c3e72' }}>
+                            {task.title}
+                          </div>
+                          <div className="text-xs truncate" style={{ color: '#6b7280' }}>
+                            {task.assignedTo?.name || assignedTeam?.name || task.assignedToExternal || 'Unassigned'}
+                          </div>
+                        </div>
+                        <div className={`size-2 rounded-full`} style={{ backgroundColor: getTaskBarColor(task) }} />
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
             </>
           )}
         </div>
@@ -287,47 +453,84 @@ export function GanttView({
               </div>
 
               {/* Task Rows */}
-              {scheduledTasks.map((task, index) => {
-                const barStyle = getTaskBarStyle(task);
-                const category = categories.find(c => c.id === task.categoryId);
-
-                if (!barStyle) return null;
-
-                return (
-                  <div
-                    key={task.id}
-                    className="relative"
-                    style={{
-                      height: '52px',
-                      borderBottom: '1px solid #f3f4f6'
-                    }}
-                  >
-                    <button
-                      onClick={() => setSelectedTask(task)}
-                      className="absolute top-1/2 -translate-y-1/2 h-8 rounded-lg flex items-center px-3 text-xs font-medium text-white shadow-sm hover:shadow-md transition-shadow"
+              {groupedScheduledTasks.map((group, groupIndex) => (
+                <div key={`timeline-scheduled-group-${groupIndex}`}>
+                  {groupBy !== 'none' && (
+                    <div
                       style={{
-                        ...barStyle,
-                        backgroundColor: category ? category.color : getTaskBarColor(task),
-                        minWidth: '60px'
+                        height: '32px',
+                        borderBottom: '1px solid #d4d0b8',
+                        backgroundColor: group.color ? `${group.color}20` : '#e8e6d520'
                       }}
-                    >
-                      <span className="truncate">{task.title}</span>
-                    </button>
-                  </div>
-                );
-              })}
+                    />
+                  )}
+                  {group.tasks.map((task, index) => {
+                    const barStyle = getTaskBarStyle(task);
+                    const category = categories.find(c => c.id === task.categoryId);
+
+                    if (!barStyle) return null;
+
+                    return (
+                      <div
+                        key={task.id}
+                        className="relative"
+                        style={{
+                          height: '52px',
+                          borderBottom: '1px solid #f3f4f6'
+                        }}
+                      >
+                        <button
+                          onClick={() => setSelectedTask(task)}
+                          className="absolute top-1/2 -translate-y-1/2 h-8 rounded-lg flex items-center px-3 text-xs font-medium text-white shadow-sm hover:shadow-md transition-shadow"
+                          style={{
+                            ...barStyle,
+                            backgroundColor: category ? category.color : getTaskBarColor(task),
+                            minWidth: '60px'
+                          }}
+                        >
+                          <span className="truncate">{task.title}</span>
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
 
               {/* Unscheduled Tasks Rows */}
-              {unscheduledTasks.map((task, index) => (
-                <div
-                  key={task.id}
-                  style={{
-                    height: '52px',
-                    borderBottom: '1px solid #f3f4f6',
-                    backgroundColor: '#fffbeb'
-                  }}
-                />
-              ))}
+              {unscheduledTasks.length > 0 && (
+                <>
+                  <div
+                    style={{
+                      height: '45px',
+                      borderBottom: '1px solid #d4d0b8',
+                      backgroundColor: '#fef3c7'
+                    }}
+                  />
+                  {groupedUnscheduledTasks.map((group, groupIndex) => (
+                    <div key={`timeline-unscheduled-group-${groupIndex}`}>
+                      {groupBy !== 'none' && (
+                        <div
+                          style={{
+                            height: '32px',
+                            borderBottom: '1px solid #d4d0b8',
+                            backgroundColor: group.color ? `${group.color}30` : '#fde68a'
+                          }}
+                        />
+                      )}
+                      {group.tasks.map((task, index) => (
+                        <div
+                          key={task.id}
+                          style={{
+                            height: '52px',
+                            borderBottom: '1px solid #f3f4f6',
+                            backgroundColor: '#fffbeb'
+                          }}
+                        />
+                      ))}
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>
