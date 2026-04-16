@@ -300,27 +300,28 @@ export function DesktopTaskCreation({
             </div>
 
             {isRecurring && (
-              <div className="bg-neutral-50 p-4 rounded-lg space-y-3">
+              <div className="bg-purple-50 p-4 rounded-lg space-y-3 border-2 border-purple-200">
+                <div className="text-sm font-medium text-purple-900 mb-2">Recurrence Settings</div>
                 <div className="grid grid-cols-3 gap-2">
                   <div>
-                    <label className="text-xs text-neutral-600 mb-1 block">Every</label>
+                    <label className="text-xs font-medium text-neutral-700 mb-1 block">Every</label>
                     <input
                       type="number"
                       min="1"
                       max="30"
                       value={recurrenceInterval}
                       onChange={(e) => setRecurrenceInterval(Number(e.target.value))}
-                      className="w-full p-2 rounded text-sm"
-                      style={{ border: '1px solid #d4d0b8' }}
+                      className="w-full p-2 rounded text-sm bg-white"
+                      style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
                     />
                   </div>
                   <div className="col-span-2">
-                    <label className="text-xs text-neutral-600 mb-1 block">Period</label>
+                    <label className="text-xs font-medium text-neutral-700 mb-1 block">Period</label>
                     <select
                       value={recurrenceType}
                       onChange={(e) => setRecurrenceType(e.target.value as 'daily' | 'weekly' | 'monthly')}
-                      className="w-full p-2 rounded text-sm"
-                      style={{ border: '1px solid #d4d0b8' }}
+                      className="w-full p-2 rounded text-sm bg-white"
+                      style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
                     >
                       <option value="daily">Day(s)</option>
                       <option value="weekly">Week(s)</option>
@@ -330,12 +331,12 @@ export function DesktopTaskCreation({
                 </div>
 
                 <div>
-                  <label className="text-xs text-neutral-600 mb-1 block">Ends</label>
+                  <label className="text-xs font-medium text-neutral-700 mb-1 block">Ends</label>
                   <select
                     value={recurrenceEndType}
                     onChange={(e) => setRecurrenceEndType(e.target.value as 'never' | 'after' | 'on')}
-                    className="w-full p-2 rounded text-sm mb-2"
-                    style={{ border: '1px solid #d4d0b8' }}
+                    className="w-full p-2 rounded text-sm mb-2 bg-white"
+                    style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
                   >
                     <option value="never">Never</option>
                     <option value="after">After number of occurrences</option>
@@ -350,8 +351,8 @@ export function DesktopTaskCreation({
                       value={recurrenceEndAfter}
                       onChange={(e) => setRecurrenceEndAfter(Number(e.target.value))}
                       placeholder="Number of occurrences"
-                      className="w-full p-2 rounded text-sm"
-                      style={{ border: '1px solid #d4d0b8' }}
+                      className="w-full p-2 rounded text-sm bg-white"
+                      style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
                     />
                   )}
 
@@ -360,8 +361,8 @@ export function DesktopTaskCreation({
                       type="date"
                       value={recurrenceEndDate ? recurrenceEndDate.toISOString().split('T')[0] : ''}
                       onChange={(e) => setRecurrenceEndDate(e.target.value ? new Date(e.target.value) : null)}
-                      className="w-full p-2 rounded text-sm"
-                      style={{ border: '1px solid #d4d0b8' }}
+                      className="w-full p-2 rounded text-sm bg-white"
+                      style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
                     />
                   )}
                 </div>

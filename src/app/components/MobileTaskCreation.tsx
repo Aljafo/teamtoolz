@@ -384,7 +384,7 @@ export function MobileTaskCreation({
             <div className="flex-1 overflow-y-auto p-4">
               <h2 className="text-lg font-semibold mb-4" style={{ color: '#2c3e72' }}>Dates & Recurrence</h2>
 
-              {/* Date pickers */}
+              {/* Date pickers - Using native mobile date picker */}
               <div className="space-y-4 mb-6">
                 <div>
                   <label className="block text-sm font-medium mb-2" style={{ color: '#2c3e72' }}>
@@ -394,7 +394,7 @@ export function MobileTaskCreation({
                     type="date"
                     value={startDate ? startDate.toISOString().split('T')[0] : ''}
                     onChange={(e) => setStartDate(e.target.value ? new Date(e.target.value + 'T00:00:00') : null)}
-                    className="w-full p-3 border border-neutral-200 rounded-xl"
+                    className="w-full p-3 border border-neutral-200 rounded-xl text-base"
                   />
                 </div>
 
@@ -406,7 +406,8 @@ export function MobileTaskCreation({
                     type="date"
                     value={endDate ? endDate.toISOString().split('T')[0] : ''}
                     onChange={(e) => setEndDate(e.target.value ? new Date(e.target.value + 'T00:00:00') : null)}
-                    className="w-full p-3 border border-neutral-200 rounded-xl"
+                    min={startDate ? startDate.toISOString().split('T')[0] : undefined}
+                    className="w-full p-3 border border-neutral-200 rounded-xl text-base"
                   />
                 </div>
               </div>
@@ -430,9 +431,10 @@ export function MobileTaskCreation({
 
               {/* Recurrence options */}
               {isRecurring && (
-                <div className="space-y-4 p-4 bg-neutral-50 rounded-xl">
+                <div className="space-y-4 p-4 bg-purple-50 rounded-xl border-2 border-purple-200">
+                  <div className="text-sm font-semibold text-purple-900 mb-2">Recurrence Settings</div>
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#2c3e72' }}>
+                    <label className="block text-sm font-semibold mb-2" style={{ color: '#2c3e72' }}>
                       Repeat Every
                     </label>
                     <div className="flex gap-2">
@@ -441,12 +443,14 @@ export function MobileTaskCreation({
                         min="1"
                         value={recurrenceInterval}
                         onChange={(e) => setRecurrenceInterval(Math.max(1, parseInt(e.target.value) || 1))}
-                        className="w-20 p-3 border border-neutral-200 rounded-xl text-center"
+                        className="w-20 p-3 border border-neutral-300 rounded-xl text-center bg-white text-base"
+                        style={{ color: '#2c3e72' }}
                       />
                       <select
                         value={recurrenceType}
                         onChange={(e) => setRecurrenceType(e.target.value as 'daily' | 'weekly' | 'monthly')}
-                        className="flex-1 p-3 border border-neutral-200 rounded-xl"
+                        className="flex-1 p-3 border border-neutral-300 rounded-xl bg-white text-base"
+                        style={{ color: '#2c3e72' }}
                       >
                         <option value="daily">Day{recurrenceInterval > 1 ? 's' : ''}</option>
                         <option value="weekly">Week{recurrenceInterval > 1 ? 's' : ''}</option>
@@ -456,50 +460,54 @@ export function MobileTaskCreation({
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: '#2c3e72' }}>
+                    <label className="block text-sm font-semibold mb-2" style={{ color: '#2c3e72' }}>
                       End Condition
                     </label>
                     <div className="space-y-2">
-                      <label className="flex items-center gap-2 p-3 border border-neutral-200 rounded-xl cursor-pointer">
+                      <label className="flex items-center gap-2 p-3 border-2 border-neutral-200 rounded-xl cursor-pointer bg-white">
                         <input
                           type="radio"
                           name="endType"
                           value="never"
                           checked={recurrenceEndType === 'never'}
                           onChange={(e) => setRecurrenceEndType('never')}
+                          className="size-4"
                         />
-                        <span className="text-sm">Never ends</span>
+                        <span className="text-sm font-medium" style={{ color: '#2c3e72' }}>Never ends</span>
                       </label>
 
-                      <label className="flex items-center gap-2 p-3 border border-neutral-200 rounded-xl cursor-pointer">
+                      <label className="flex items-center gap-2 p-3 border-2 border-neutral-200 rounded-xl cursor-pointer bg-white">
                         <input
                           type="radio"
                           name="endType"
                           value="after"
                           checked={recurrenceEndType === 'after'}
                           onChange={(e) => setRecurrenceEndType('after')}
+                          className="size-4"
                         />
-                        <span className="text-sm">After</span>
+                        <span className="text-sm font-medium" style={{ color: '#2c3e72' }}>After</span>
                         <input
                           type="number"
                           min="1"
                           value={recurrenceEndAfter}
                           onChange={(e) => setRecurrenceEndAfter(Math.max(1, parseInt(e.target.value) || 1))}
                           onClick={() => setRecurrenceEndType('after')}
-                          className="w-16 p-2 border border-neutral-200 rounded-lg text-center text-sm"
+                          className="w-16 p-2 border-2 border-neutral-300 rounded-lg text-center text-sm bg-white"
+                          style={{ color: '#2c3e72' }}
                         />
-                        <span className="text-sm">occurrences</span>
+                        <span className="text-sm font-medium" style={{ color: '#2c3e72' }}>times</span>
                       </label>
 
-                      <label className="flex items-center gap-2 p-3 border border-neutral-200 rounded-xl cursor-pointer">
+                      <label className="flex items-center gap-2 p-3 border-2 border-neutral-200 rounded-xl cursor-pointer bg-white">
                         <input
                           type="radio"
                           name="endType"
                           value="on"
                           checked={recurrenceEndType === 'on'}
                           onChange={(e) => setRecurrenceEndType('on')}
+                          className="size-4"
                         />
-                        <span className="text-sm">On</span>
+                        <span className="text-sm font-medium" style={{ color: '#2c3e72' }}>On</span>
                         <input
                           type="date"
                           value={recurrenceEndDate ? recurrenceEndDate.toISOString().split('T')[0] : ''}
@@ -507,7 +515,8 @@ export function MobileTaskCreation({
                             setRecurrenceEndDate(e.target.value ? new Date(e.target.value + 'T00:00:00') : null);
                             setRecurrenceEndType('on');
                           }}
-                          className="flex-1 p-2 border border-neutral-200 rounded-lg text-sm"
+                          className="flex-1 p-2 border-2 border-neutral-300 rounded-lg text-sm bg-white"
+                          style={{ color: '#2c3e72' }}
                         />
                       </label>
                     </div>
