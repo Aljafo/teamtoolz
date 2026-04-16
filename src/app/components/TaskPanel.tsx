@@ -45,7 +45,7 @@ export function TaskPanel({ tasks, team, teams, categories, subcategories, messa
     <div className="flex-1 flex flex-col" style={{ backgroundColor: '#f5f5dc' }}>
       <div className="px-8 py-6 flex items-center justify-between" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: 'white' }}>
         <div>
-          <h2 className="text-2xl font-semibold" style={{ color: '#2c3e72' }}>Tasks</h2>
+          <h2 className="text-2xl font-semibold" style={{ color: '#1f2a4e' }}>Tasks</h2>
           <p style={{ color: '#6b7280' }}>{tasks.length} total tasks</p>
         </div>
         <button

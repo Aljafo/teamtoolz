@@ -98,7 +98,7 @@ export function ChatPanel({
     <div className="flex-1 flex flex-col" style={{ backgroundColor: '#f5f5dc' }}>
       <div className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: 'white' }}>
         <div>
-          <h2 className="font-semibold" style={{ color: '#2c3e72' }}>Observations</h2>
+          <h2 className="font-semibold" style={{ color: '#1f2a4e' }}>Observations</h2>
           <p className="text-sm" style={{ color: '#6b7280' }}>Share what you see, convert to tasks</p>
         </div>
         <button

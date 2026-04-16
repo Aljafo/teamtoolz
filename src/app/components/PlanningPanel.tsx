@@ -165,7 +165,7 @@ export function PlanningPanel({
       {/* Header */}
       <div className="px-8 py-6 flex items-center justify-between" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: 'white' }}>
         <div>
-          <h2 className="text-2xl font-semibold" style={{ color: '#2c3e72' }}>Planning</h2>
+          <h2 className="text-2xl font-semibold" style={{ color: '#1f2a4e' }}>Planning</h2>
           <p style={{ color: '#6b7280' }}>View tasks on calendar and timeline</p>
         </div>
 
@@ -199,12 +199,12 @@ export function PlanningPanel({
       {/* Filters */}
       <div className="px-8 py-4 flex flex-wrap items-center gap-4" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: 'white' }}>
         <div className="flex items-center gap-2">
-          <label className="text-sm font-medium" style={{ color: '#2c3e72' }}>Status:</label>
+          <label className="text-sm font-medium" style={{ color: '#1f2a4e' }}>Status:</label>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value as Task['status'] | 'all')}
             className="px-3 py-1.5 rounded-lg text-sm"
-            style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
+            style={{ border: '1px solid #d4d0b8', color: '#1f2a4e', backgroundColor: 'white' }}
           >
             <option value="all">All Statuses</option>
             <option value="pending">Pending</option>
@@ -214,12 +214,12 @@ export function PlanningPanel({
         </div>
 
         <div className="flex items-center gap-2">
-          <label className="text-sm font-medium" style={{ color: '#2c3e72' }}>Category:</label>
+          <label className="text-sm font-medium" style={{ color: '#1f2a4e' }}>Category:</label>
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
             className="px-3 py-1.5 rounded-lg text-sm"
-            style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
+            style={{ border: '1px solid #d4d0b8', color: '#1f2a4e', backgroundColor: 'white' }}
           >
             <option value="all">All Categories</option>
             {categories.map(category => (
@@ -229,12 +229,12 @@ export function PlanningPanel({
         </div>
 
         <div className="flex items-center gap-2">
-          <label className="text-sm font-medium" style={{ color: '#2c3e72' }}>Assignee:</label>
+          <label className="text-sm font-medium" style={{ color: '#1f2a4e' }}>Assignee:</label>
           <select
             value={filterAssignee}
             onChange={(e) => setFilterAssignee(e.target.value)}
             className="px-3 py-1.5 rounded-lg text-sm"
-            style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
+            style={{ border: '1px solid #d4d0b8', color: '#1f2a4e', backgroundColor: 'white' }}
           >
             <option value="all">All Assignees</option>
             <option value="unassigned">Unassigned</option>
@@ -248,12 +248,12 @@ export function PlanningPanel({
         </div>
 
         <div className="flex items-center gap-2">
-          <label className="text-sm font-medium" style={{ color: '#2c3e72' }}>Team:</label>
+          <label className="text-sm font-medium" style={{ color: '#1f2a4e' }}>Team:</label>
           <select
             value={filterTeam}
             onChange={(e) => setFilterTeam(e.target.value)}
             className="px-3 py-1.5 rounded-lg text-sm"
-            style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
+            style={{ border: '1px solid #d4d0b8', color: '#1f2a4e', backgroundColor: 'white' }}
           >
             <option value="all">All Teams</option>
             <option value="noteam">No Team</option>
@@ -264,12 +264,12 @@ export function PlanningPanel({
         </div>
 
         <div className="flex items-center gap-2">
-          <label className="text-sm font-medium" style={{ color: '#2c3e72' }}>Date Range:</label>
+          <label className="text-sm font-medium" style={{ color: '#1f2a4e' }}>Date Range:</label>
           <select
             value={filterDateRange}
             onChange={(e) => setFilterDateRange(e.target.value as typeof filterDateRange)}
             className="px-3 py-1.5 rounded-lg text-sm"
-            style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
+            style={{ border: '1px solid #d4d0b8', color: '#1f2a4e', backgroundColor: 'white' }}
           >
             <option value="all">All Dates</option>
             <option value="overdue">Overdue</option>
@@ -286,7 +286,7 @@ export function PlanningPanel({
             onChange={(e) => setExpandRecurring(e.target.checked)}
             className="size-4"
           />
-          <span className="text-sm font-medium" style={{ color: '#2c3e72' }}>Expand recurring</span>
+          <span className="text-sm font-medium" style={{ color: '#1f2a4e' }}>Expand recurring</span>
         </label>
 
         <label className="flex items-center gap-2 ml-auto">
@@ -296,7 +296,7 @@ export function PlanningPanel({
             onChange={(e) => setShowCompleted(e.target.checked)}
             className="size-4"
           />
-          <span className="text-sm font-medium" style={{ color: '#2c3e72' }}>Show completed</span>
+          <span className="text-sm font-medium" style={{ color: '#1f2a4e' }}>Show completed</span>
         </label>
 
         <div className="text-sm" style={{ color: '#6b7280' }}>

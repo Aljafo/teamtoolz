@@ -239,7 +239,7 @@ export function GanttView({
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Controls */}
       <div className="px-8 py-4 flex items-center justify-between gap-6" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: 'white' }}>
-        <h3 className="text-lg font-semibold" style={{ color: '#2c3e72' }}>Timeline</h3>
+        <h3 className="text-lg font-semibold" style={{ color: '#1f2a4e' }}>Timeline</h3>
 
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
@@ -282,7 +282,7 @@ export function GanttView({
               value={groupBy}
               onChange={(e) => setGroupBy(e.target.value as GroupBy)}
               className="px-3 py-1.5 rounded-lg text-sm"
-              style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
+              style={{ border: '1px solid #d4d0b8', color: '#1f2a4e', backgroundColor: 'white' }}
             >
               <option value="none">None</option>
               <option value="category">Category</option>
@@ -298,7 +298,7 @@ export function GanttView({
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as SortBy)}
               className="px-3 py-1.5 rounded-lg text-sm"
-              style={{ border: '1px solid #d4d0b8', color: '#2c3e72', backgroundColor: 'white' }}
+              style={{ border: '1px solid #d4d0b8', color: '#1f2a4e', backgroundColor: 'white' }}
             >
               <option value="startDate">Start Date</option>
               <option value="endDate">End Date</option>
@@ -320,7 +320,7 @@ export function GanttView({
       <div className="flex-1 flex overflow-hidden">
         {/* Task List Column */}
         <div className="w-80 flex-shrink-0 overflow-y-auto" style={{ borderRight: '1px solid #d4d0b8', backgroundColor: 'white' }}>
-          <div className="sticky top-0 z-10 px-4 py-3 font-semibold text-sm" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: '#f5f5dc', color: '#2c3e72' }}>
+          <div className="sticky top-0 z-10 px-4 py-3 font-semibold text-sm" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: '#f5f5dc', color: '#1f2a4e' }}>
             Task Name
           </div>
 
@@ -333,7 +333,7 @@ export function GanttView({
                   style={{
                     borderBottom: '1px solid #d4d0b8',
                     backgroundColor: group.color || '#e8e6d5',
-                    color: group.color ? 'white' : '#2c3e72',
+                    color: group.color ? 'white' : '#1f2a4e',
                     top: '45px',
                     zIndex: 9
                   }}
@@ -351,7 +351,7 @@ export function GanttView({
                     onClick={() => setSelectedTask(task)}
                   >
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium truncate" style={{ color: '#2c3e72' }}>
+                      <div className="text-sm font-medium truncate" style={{ color: '#1f2a4e' }}>
                         {task.title}
                       </div>
                       <div className="text-xs truncate" style={{ color: '#6b7280' }}>
@@ -397,7 +397,7 @@ export function GanttView({
                         onClick={() => setSelectedTask(task)}
                       >
                         <div className="flex-1 min-w-0">
-                          <div className="text-sm font-medium truncate" style={{ color: '#2c3e72' }}>
+                          <div className="text-sm font-medium truncate" style={{ color: '#1f2a4e' }}>
                             {task.title}
                           </div>
                           <div className="text-xs truncate" style={{ color: '#6b7280' }}>

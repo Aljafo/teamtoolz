@@ -106,7 +106,7 @@ export function MobileContacts({
       animate={{ x: 0 }}
       exit={{ x: '100%' }}
       transition={{ type: 'tween', duration: 0.3 }}
-      className="absolute inset-0 bg-[#2c3e72] z-50 flex flex-col"
+      className="absolute inset-0 bg-[#1f2a4e] z-50 flex flex-col"
     >
       {/* Status Bar */}
       <div className="h-11 bg-[#1e2942] flex items-center justify-between px-6 pt-2 text-white">
@@ -119,7 +119,7 @@ export function MobileContacts({
       </div>
 
       {/* Icons Row */}
-      <div className="flex items-center justify-between px-4 py-2 bg-[#2c3e72]">
+      <div className="flex items-center justify-between px-4 py-2 bg-[#1f2a4e]">
         {/* Contact Icon */}
         <div className="relative flex items-center">
           <button
@@ -258,7 +258,7 @@ export function MobileContacts({
       </div>
 
       {/* Color Indicator Strip */}
-      <div className="h-1.5 bg-[#2c3e72]" />
+      <div className="h-1.5 bg-[#1f2a4e]" />
 
       {/* Bottom Tabs */}
       <div className="flex z-50 shadow-lg">

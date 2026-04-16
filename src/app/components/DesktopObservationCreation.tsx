@@ -81,7 +81,7 @@ export function DesktopObservationCreation({
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col" style={{ border: '1px solid #d4d0b8' }}>
         {/* Header */}
         <div className="flex items-center justify-between p-6" style={{ borderBottom: '1px solid #d4d0b8' }}>
-          <h2 className="text-2xl font-semibold" style={{ color: '#2c3e72' }}>New Observation</h2>
+          <h2 className="text-2xl font-semibold" style={{ color: '#1f2a4e' }}>New Observation</h2>
           <button
             onClick={onClose}
             className="size-8 rounded-lg hover:bg-neutral-100 flex items-center justify-center transition-colors"
@@ -94,7 +94,7 @@ export function DesktopObservationCreation({
         <div className="flex-1 overflow-y-auto p-6">
           {/* Description Section */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold mb-3" style={{ color: '#2c3e72' }}>Description *</h3>
+            <h3 className="text-sm font-semibold mb-3" style={{ color: '#1f2a4e' }}>Description *</h3>
 
             <textarea
               value={message}
@@ -109,7 +109,7 @@ export function DesktopObservationCreation({
 
           {/* Photos Section */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold mb-3" style={{ color: '#2c3e72' }}>Photos</h3>
+            <h3 className="text-sm font-semibold mb-3" style={{ color: '#1f2a4e' }}>Photos</h3>
 
             <input
               ref={fileInputRef}
@@ -148,7 +148,7 @@ export function DesktopObservationCreation({
 
           {/* Category Section */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold mb-3" style={{ color: '#2c3e72' }}>Category *</h3>
+            <h3 className="text-sm font-semibold mb-3" style={{ color: '#1f2a4e' }}>Category *</h3>
 
             <select
               value={selectedCategory ? selectedCategory.id : ''}
@@ -158,7 +158,7 @@ export function DesktopObservationCreation({
                 setSelectedSubcategory(null); // Clear subcategory when category changes
               }}
               className="w-full p-3 rounded-lg"
-              style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+              style={{ border: '1px solid #d4d0b8', color: '#1f2a4e' }}
             >
               {categories.map(category => (
                 <option key={category.id} value={category.id}>
@@ -171,7 +171,7 @@ export function DesktopObservationCreation({
           {/* Subcategory Section (conditional) */}
           {selectedCategory && getCategorySubcategories(selectedCategory.id).length > 0 && (
             <div className="mb-6">
-              <h3 className="text-sm font-semibold mb-3" style={{ color: '#2c3e72' }}>Subcategory *</h3>
+              <h3 className="text-sm font-semibold mb-3" style={{ color: '#1f2a4e' }}>Subcategory *</h3>
 
               <select
                 value={selectedSubcategory ? selectedSubcategory.id : ''}
@@ -180,7 +180,7 @@ export function DesktopObservationCreation({
                   setSelectedSubcategory(subcat || null);
                 }}
                 className="w-full p-3 rounded-lg"
-                style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+                style={{ border: '1px solid #d4d0b8', color: '#1f2a4e' }}
               >
                 <option value="">Select a subcategory...</option>
                 {getCategorySubcategories(selectedCategory.id).map(subcategory => (
@@ -202,7 +202,7 @@ export function DesktopObservationCreation({
 
           {/* Send To Section */}
           <div>
-            <h3 className="text-sm font-semibold mb-3" style={{ color: '#2c3e72' }}>Send To *</h3>
+            <h3 className="text-sm font-semibold mb-3" style={{ color: '#1f2a4e' }}>Send To *</h3>
 
             <select
               value={selectedRecipient ? selectedRecipient.id : ''}
@@ -211,7 +211,7 @@ export function DesktopObservationCreation({
                 setSelectedRecipient(person || null);
               }}
               className="w-full p-3 rounded-lg"
-              style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+              style={{ border: '1px solid #d4d0b8', color: '#1f2a4e' }}
             >
               <option value="">Select a team member...</option>
               {team.map(member => (

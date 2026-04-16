@@ -140,7 +140,7 @@ export function DesktopTaskCreation({
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col" style={{ border: '1px solid #d4d0b8' }}>
         {/* Header */}
         <div className="flex items-center justify-between p-6" style={{ borderBottom: '1px solid #d4d0b8' }}>
-          <h2 className="text-2xl font-semibold" style={{ color: '#2c3e72' }}>Create New Task</h2>
+          <h2 className="text-2xl font-semibold" style={{ color: '#1f2a4e' }}>Create New Task</h2>
           <button
             onClick={onClose}
             className="size-8 rounded-lg hover:bg-neutral-100 flex items-center justify-center transition-colors"
@@ -153,7 +153,7 @@ export function DesktopTaskCreation({
         <div className="flex-1 overflow-y-auto p-6">
           {/* Task Details Section */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold mb-3" style={{ color: '#2c3e72' }}>Task Details</h3>
+            <h3 className="text-sm font-semibold mb-3" style={{ color: '#1f2a4e' }}>Task Details</h3>
 
             <input
               type="text"
@@ -177,7 +177,7 @@ export function DesktopTaskCreation({
 
           {/* Photos Section */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold mb-3" style={{ color: '#2c3e72' }}>Photos</h3>
+            <h3 className="text-sm font-semibold mb-3" style={{ color: '#1f2a4e' }}>Photos</h3>
 
             <input
               ref={fileInputRef}
@@ -216,7 +216,7 @@ export function DesktopTaskCreation({
 
           {/* Category Section */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold mb-3" style={{ color: '#2c3e72' }}>Category *</h3>
+            <h3 className="text-sm font-semibold mb-3" style={{ color: '#1f2a4e' }}>Category *</h3>
 
             <select
               value={selectedCategory ? selectedCategory.id : ''}
@@ -226,7 +226,7 @@ export function DesktopTaskCreation({
                 setSelectedSubcategory(null); // Clear subcategory when category changes
               }}
               className="w-full p-3 rounded-lg"
-              style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+              style={{ border: '1px solid #d4d0b8', color: '#1f2a4e' }}
             >
               {categories.map(category => (
                 <option key={category.id} value={category.id}>
@@ -239,7 +239,7 @@ export function DesktopTaskCreation({
           {/* Subcategory Section (conditional) */}
           {selectedCategory && getCategorySubcategories(selectedCategory.id).length > 0 && (
             <div className="mb-6">
-              <h3 className="text-sm font-semibold mb-3" style={{ color: '#2c3e72' }}>Subcategory *</h3>
+              <h3 className="text-sm font-semibold mb-3" style={{ color: '#1f2a4e' }}>Subcategory *</h3>
 
               <select
                 value={selectedSubcategory ? selectedSubcategory.id : ''}
@@ -248,7 +248,7 @@ export function DesktopTaskCreation({
                   setSelectedSubcategory(subcat || null);
                 }}
                 className="w-full p-3 rounded-lg"
-                style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+                style={{ border: '1px solid #d4d0b8', color: '#1f2a4e' }}
               >
                 <option value="">Select a subcategory...</option>
                 {getCategorySubcategories(selectedCategory.id).map(subcategory => (
@@ -270,7 +270,7 @@ export function DesktopTaskCreation({
 
           {/* Dates & Recurrence Section */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold mb-3" style={{ color: '#2c3e72' }}>Dates & Recurrence</h3>
+            <h3 className="text-sm font-semibold mb-3" style={{ color: '#1f2a4e' }}>Dates & Recurrence</h3>
 
             <div className="grid grid-cols-2 gap-3 mb-3">
               <div>
@@ -321,7 +321,7 @@ export function DesktopTaskCreation({
                       value={recurrenceInterval}
                       onChange={(e) => setRecurrenceInterval(Number(e.target.value))}
                       className="w-full p-2 rounded text-sm bg-white"
-                      style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+                      style={{ border: '1px solid #d4d0b8', color: '#1f2a4e' }}
                     />
                   </div>
                   <div className="col-span-2">
@@ -330,7 +330,7 @@ export function DesktopTaskCreation({
                       value={recurrenceType}
                       onChange={(e) => setRecurrenceType(e.target.value as 'daily' | 'weekly' | 'monthly')}
                       className="w-full p-2 rounded text-sm bg-white"
-                      style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+                      style={{ border: '1px solid #d4d0b8', color: '#1f2a4e' }}
                     >
                       <option value="daily">Day(s)</option>
                       <option value="weekly">Week(s)</option>
@@ -345,7 +345,7 @@ export function DesktopTaskCreation({
                     value={recurrenceEndType}
                     onChange={(e) => setRecurrenceEndType(e.target.value as 'never' | 'after' | 'on')}
                     className="w-full p-2 rounded text-sm mb-2 bg-white"
-                    style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+                    style={{ border: '1px solid #d4d0b8', color: '#1f2a4e' }}
                   >
                     <option value="never">Never</option>
                     <option value="after">After number of occurrences</option>
@@ -361,7 +361,7 @@ export function DesktopTaskCreation({
                       onChange={(e) => setRecurrenceEndAfter(Number(e.target.value))}
                       placeholder="Number of occurrences"
                       className="w-full p-2 rounded text-sm bg-white"
-                      style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+                      style={{ border: '1px solid #d4d0b8', color: '#1f2a4e' }}
                     />
                   )}
 
@@ -371,7 +371,7 @@ export function DesktopTaskCreation({
                       value={recurrenceEndDate ? recurrenceEndDate.toISOString().split('T')[0] : ''}
                       onChange={(e) => setRecurrenceEndDate(e.target.value ? new Date(e.target.value) : null)}
                       className="w-full p-2 rounded text-sm bg-white"
-                      style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+                      style={{ border: '1px solid #d4d0b8', color: '#1f2a4e' }}
                     />
                   )}
                 </div>
@@ -381,7 +381,7 @@ export function DesktopTaskCreation({
 
           {/* Assignment Section */}
           <div>
-            <h3 className="text-sm font-semibold mb-3" style={{ color: '#2c3e72' }}>Assignment</h3>
+            <h3 className="text-sm font-semibold mb-3" style={{ color: '#1f2a4e' }}>Assignment</h3>
 
             {/* Assignment Type Tabs */}
             <div className="flex gap-2 mb-4">
@@ -436,7 +436,7 @@ export function DesktopTaskCreation({
                   setSelectedPerson(person || null);
                 }}
                 className="w-full p-3 rounded-lg"
-                style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+                style={{ border: '1px solid #d4d0b8', color: '#1f2a4e' }}
               >
                 <option value="">Select a team member...</option>
                 {team.map(member => (
@@ -455,7 +455,7 @@ export function DesktopTaskCreation({
                   setSelectedTeam(t || null);
                 }}
                 className="w-full p-3 rounded-lg"
-                style={{ border: '1px solid #d4d0b8', color: '#2c3e72' }}
+                style={{ border: '1px solid #d4d0b8', color: '#1f2a4e' }}
               >
                 <option value="">Select a team...</option>
                 {teams.map(team => (

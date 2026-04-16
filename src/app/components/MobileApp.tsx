@@ -228,7 +228,7 @@ export function MobileApp({
   };
 
   return (
-    <div className="w-[390px] h-[844px] bg-[#2c3e72] rounded-[40px] shadow-2xl overflow-hidden flex flex-col border-8 border-neutral-900 relative">
+    <div className="w-[390px] h-[844px] bg-[#1f2a4e] rounded-[40px] shadow-2xl overflow-hidden flex flex-col border-8 border-neutral-900 relative">
       {/* Status Bar */}
       <div className="h-11 bg-[#1e2942] flex items-center justify-between px-6 pt-2 text-white">
         <span className="text-sm font-semibold">20:06</span>
@@ -242,7 +242,7 @@ export function MobileApp({
       {/* Sticky Top Navigation */}
       <div className="bg-white">
         {/* Icons Row */}
-        <div className="flex items-center justify-between px-4 py-2 bg-[#2c3e72]">
+        <div className="flex items-center justify-between px-4 py-2 bg-[#1f2a4e]">
           {/* Contact Icon */}
           <div className="relative flex items-center">
             <button
@@ -252,7 +252,7 @@ export function MobileApp({
               <UsersRound className="size-8 text-white" />
               {/* Notification badge */}
               {(hasUnreadFromContacts || unreadGlobalCount > 0) && (
-                <div className="absolute -top-1 -right-1 size-6 bg-red-600 rounded-full flex items-center justify-center z-20 border-2 border-[#2c3e72]">
+                <div className="absolute -top-1 -right-1 size-6 bg-red-600 rounded-full flex items-center justify-center z-20 border-2 border-[#1f2a4e]">
                   <span className="text-white text-[11px] font-bold">
                     {(hasUnreadFromContacts ? 1 : 0) + unreadGlobalCount}
                   </span>
@@ -270,13 +270,13 @@ export function MobileApp({
         </div>
 
         {/* Top Tabs */}
-        <div className="flex gap-0.5 bg-[#2c3e72] px-0.5">
+        <div className="flex gap-0.5 bg-[#1f2a4e] px-0.5">
           <button
             onClick={() => setActiveView('my-day')}
             className="flex-1 py-3 text-sm font-medium transition-all rounded-tl-2xl rounded-tr-2xl shadow-md"
             style={{
               backgroundColor: '#f5f5dc',
-              color: '#2c3e72'
+              color: '#1f2a4e'
             }}
           >
             My Day
@@ -445,7 +445,7 @@ export function MobileApp({
                 >
                   <div
                     className="text-base font-semibold"
-                    style={{ color: '#2c3e72' }}
+                    style={{ color: '#1f2a4e' }}
                   >
                     {currentDay === 'yesterday' ? 'Yesterday' : currentDay === 'today' ? 'Today' : 'Tomorrow'}
                   </div>
@@ -772,7 +772,7 @@ export function MobileApp({
       />
 
       {/* Bottom Tabs - Always Visible - Inside Phone Frame */}
-      <div className="flex gap-0.5 bg-[#2c3e72] px-0.5 pb-0.5 z-50">
+      <div className="flex gap-0.5 bg-[#1f2a4e] px-0.5 pb-0.5 z-50">
         <button
           onClick={() => setActiveView('tasks')}
           className={`flex-1 py-3 text-sm font-medium transition-all rounded-bl-2xl rounded-br-2xl shadow-md ${

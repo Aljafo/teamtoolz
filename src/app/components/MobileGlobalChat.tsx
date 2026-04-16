@@ -33,7 +33,7 @@ export function MobileGlobalChat({
       className="absolute inset-0 bg-white z-50 flex flex-col"
     >
       {/* Header */}
-      <div className="bg-[#2c3e72] text-white">
+      <div className="bg-[#1f2a4e] text-white">
         {/* Status Bar */}
         <div className="h-11 bg-[#1e2942] flex items-center justify-between px-6 pt-2">
           <span className="text-sm font-semibold">20:06</span>

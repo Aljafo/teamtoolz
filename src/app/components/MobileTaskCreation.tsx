@@ -141,7 +141,7 @@ export function MobileTaskCreation({
           <ArrowLeft className="size-5" />
           <span>Cancel</span>
         </button>
-        <span className="font-medium" style={{ color: '#2c3e72' }}>New Task</span>
+        <span className="font-medium" style={{ color: '#1f2a4e' }}>New Task</span>
         <div className="w-16" />
       </div>
 
@@ -168,7 +168,7 @@ export function MobileTaskCreation({
             className="flex-1 flex flex-col overflow-hidden"
           >
             <div className="flex-1 overflow-y-auto p-4">
-              <h2 className="text-lg font-semibold mb-4" style={{ color: '#2c3e72' }}>Task Details</h2>
+              <h2 className="text-lg font-semibold mb-4" style={{ color: '#1f2a4e' }}>Task Details</h2>
 
               <input
                 type="text"
@@ -243,7 +243,7 @@ export function MobileTaskCreation({
             className="flex-1 flex flex-col overflow-hidden"
           >
             <div className="flex-1 overflow-y-auto p-4">
-              <h2 className="text-lg font-semibold mb-4" style={{ color: '#2c3e72' }}>Select Category</h2>
+              <h2 className="text-lg font-semibold mb-4" style={{ color: '#1f2a4e' }}>Select Category</h2>
 
               <div className="space-y-2">
                 {categories.map(category => (
@@ -257,7 +257,7 @@ export function MobileTaskCreation({
                     }`}
                   >
                     <div className="size-6 rounded-full" style={{ backgroundColor: category.color }} />
-                    <span className="font-medium" style={{ color: '#2c3e72' }}>{category.name}</span>
+                    <span className="font-medium" style={{ color: '#1f2a4e' }}>{category.name}</span>
                     {selectedCategory?.id === category.id && (
                       <Check className="size-5 ml-auto" style={{ color: '#4dd0e1' }} />
                     )}
@@ -305,7 +305,7 @@ export function MobileTaskCreation({
             className="flex-1 flex flex-col overflow-hidden"
           >
             <div className="flex-1 overflow-y-auto p-4">
-              <h2 className="text-lg font-semibold mb-2" style={{ color: '#2c3e72' }}>Select Subcategory</h2>
+              <h2 className="text-lg font-semibold mb-2" style={{ color: '#1f2a4e' }}>Select Subcategory</h2>
               <p className="text-sm text-neutral-600 mb-4">for {selectedCategory.name}</p>
 
               <div className="space-y-2">
@@ -319,7 +319,7 @@ export function MobileTaskCreation({
                         : 'border-neutral-200 bg-white'
                     }`}
                   >
-                    <span className="font-medium" style={{ color: '#2c3e72' }}>{subcategory.name}</span>
+                    <span className="font-medium" style={{ color: '#1f2a4e' }}>{subcategory.name}</span>
                     {selectedSubcategory?.id === subcategory.id && (
                       <Check className="size-5 ml-auto" style={{ color: '#4dd0e1' }} />
                     )}
@@ -382,12 +382,12 @@ export function MobileTaskCreation({
             className="flex-1 flex flex-col overflow-hidden"
           >
             <div className="flex-1 overflow-y-auto p-4">
-              <h2 className="text-lg font-semibold mb-4" style={{ color: '#2c3e72' }}>Dates & Recurrence</h2>
+              <h2 className="text-lg font-semibold mb-4" style={{ color: '#1f2a4e' }}>Dates & Recurrence</h2>
 
               {/* Date pickers - Using native mobile date picker */}
               <div className="space-y-4 mb-6">
                 <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#2c3e72' }}>
+                  <label className="block text-sm font-medium mb-2" style={{ color: '#1f2a4e' }}>
                     Start Date (Optional)
                   </label>
                   <input
@@ -399,7 +399,7 @@ export function MobileTaskCreation({
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#2c3e72' }}>
+                  <label className="block text-sm font-medium mb-2" style={{ color: '#1f2a4e' }}>
                     End Date (Optional)
                   </label>
                   <input
@@ -422,7 +422,7 @@ export function MobileTaskCreation({
                     className="size-5"
                   />
                   <div className="flex-1">
-                    <div className="font-medium" style={{ color: '#2c3e72' }}>Make this a recurring task</div>
+                    <div className="font-medium" style={{ color: '#1f2a4e' }}>Make this a recurring task</div>
                     <div className="text-xs text-neutral-500">Automatically create new tasks on a schedule</div>
                   </div>
                   <Repeat className="size-5 text-neutral-400" />
@@ -434,7 +434,7 @@ export function MobileTaskCreation({
                 <div className="space-y-4 p-4 bg-purple-50 rounded-xl border-2 border-purple-200">
                   <div className="text-sm font-semibold text-purple-900 mb-2">Recurrence Settings</div>
                   <div>
-                    <label className="block text-sm font-semibold mb-2" style={{ color: '#2c3e72' }}>
+                    <label className="block text-sm font-semibold mb-2" style={{ color: '#1f2a4e' }}>
                       Repeat Every
                     </label>
                     <div className="flex gap-2">
@@ -444,13 +444,13 @@ export function MobileTaskCreation({
                         value={recurrenceInterval}
                         onChange={(e) => setRecurrenceInterval(Math.max(1, parseInt(e.target.value) || 1))}
                         className="w-20 p-3 border border-neutral-300 rounded-xl text-center bg-white text-base"
-                        style={{ color: '#2c3e72' }}
+                        style={{ color: '#1f2a4e' }}
                       />
                       <select
                         value={recurrenceType}
                         onChange={(e) => setRecurrenceType(e.target.value as 'daily' | 'weekly' | 'monthly')}
                         className="flex-1 p-3 border border-neutral-300 rounded-xl bg-white text-base"
-                        style={{ color: '#2c3e72' }}
+                        style={{ color: '#1f2a4e' }}
                       >
                         <option value="daily">Day{recurrenceInterval > 1 ? 's' : ''}</option>
                         <option value="weekly">Week{recurrenceInterval > 1 ? 's' : ''}</option>
@@ -460,7 +460,7 @@ export function MobileTaskCreation({
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold mb-2" style={{ color: '#2c3e72' }}>
+                    <label className="block text-sm font-semibold mb-2" style={{ color: '#1f2a4e' }}>
                       End Condition
                     </label>
                     <div className="space-y-2">
@@ -473,7 +473,7 @@ export function MobileTaskCreation({
                           onChange={(e) => setRecurrenceEndType('never')}
                           className="size-4"
                         />
-                        <span className="text-sm font-medium" style={{ color: '#2c3e72' }}>Never ends</span>
+                        <span className="text-sm font-medium" style={{ color: '#1f2a4e' }}>Never ends</span>
                       </label>
 
                       <label className="flex items-center gap-2 p-3 border-2 border-neutral-200 rounded-xl cursor-pointer bg-white">
@@ -485,7 +485,7 @@ export function MobileTaskCreation({
                           onChange={(e) => setRecurrenceEndType('after')}
                           className="size-4"
                         />
-                        <span className="text-sm font-medium" style={{ color: '#2c3e72' }}>After</span>
+                        <span className="text-sm font-medium" style={{ color: '#1f2a4e' }}>After</span>
                         <input
                           type="number"
                           min="1"
@@ -493,9 +493,9 @@ export function MobileTaskCreation({
                           onChange={(e) => setRecurrenceEndAfter(Math.max(1, parseInt(e.target.value) || 1))}
                           onClick={() => setRecurrenceEndType('after')}
                           className="w-16 p-2 border-2 border-neutral-300 rounded-lg text-center text-sm bg-white"
-                          style={{ color: '#2c3e72' }}
+                          style={{ color: '#1f2a4e' }}
                         />
-                        <span className="text-sm font-medium" style={{ color: '#2c3e72' }}>times</span>
+                        <span className="text-sm font-medium" style={{ color: '#1f2a4e' }}>times</span>
                       </label>
 
                       <label className="flex items-center gap-2 p-3 border-2 border-neutral-200 rounded-xl cursor-pointer bg-white">
@@ -507,7 +507,7 @@ export function MobileTaskCreation({
                           onChange={(e) => setRecurrenceEndType('on')}
                           className="size-4"
                         />
-                        <span className="text-sm font-medium" style={{ color: '#2c3e72' }}>On</span>
+                        <span className="text-sm font-medium" style={{ color: '#1f2a4e' }}>On</span>
                         <input
                           type="date"
                           value={recurrenceEndDate ? recurrenceEndDate.toISOString().split('T')[0] : ''}
@@ -516,7 +516,7 @@ export function MobileTaskCreation({
                             setRecurrenceEndType('on');
                           }}
                           className="flex-1 p-2 border-2 border-neutral-300 rounded-lg text-sm bg-white"
-                          style={{ color: '#2c3e72' }}
+                          style={{ color: '#1f2a4e' }}
                         />
                       </label>
                     </div>
@@ -554,7 +554,7 @@ export function MobileTaskCreation({
             className="flex-1 flex flex-col overflow-hidden"
           >
             <div className="p-4 border-b border-neutral-200">
-              <h2 className="text-lg font-semibold mb-3" style={{ color: '#2c3e72' }}>Assign Task</h2>
+              <h2 className="text-lg font-semibold mb-3" style={{ color: '#1f2a4e' }}>Assign Task</h2>
 
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -625,7 +625,7 @@ export function MobileTaskCreation({
                           {getInitials(member.name)}
                         </div>
                         <div className="flex-1 text-left">
-                          <div className="font-medium" style={{ color: '#2c3e72' }}>{member.name}</div>
+                          <div className="font-medium" style={{ color: '#1f2a4e' }}>{member.name}</div>
                           <div className="text-xs text-neutral-500">{member.role}</div>
                         </div>
                         {selectedPerson?.id === member.id && (
@@ -651,7 +651,7 @@ export function MobileTaskCreation({
                     >
                       <Users className="size-8" style={{ color: '#9c88ff' }} />
                       <div className="flex-1 text-left">
-                        <div className="font-medium" style={{ color: '#2c3e72' }}>{team.name}</div>
+                        <div className="font-medium" style={{ color: '#1f2a4e' }}>{team.name}</div>
                         <div className="text-xs text-neutral-500">{team.memberIds.length} members</div>
                       </div>
                       {selectedTeam?.id === team.id && (
@@ -664,7 +664,7 @@ export function MobileTaskCreation({
 
               {assignmentType === 'external' && (
                 <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#2c3e72' }}>
+                  <label className="block text-sm font-medium mb-2" style={{ color: '#1f2a4e' }}>
                     External Email Address
                   </label>
                   <input
@@ -685,7 +685,7 @@ export function MobileTaskCreation({
                   <div className="size-16 rounded-full bg-neutral-100 mx-auto mb-3 flex items-center justify-center">
                     <Check className="size-8 text-neutral-400" />
                   </div>
-                  <h3 className="font-medium mb-1" style={{ color: '#2c3e72' }}>Unassigned Task</h3>
+                  <h3 className="font-medium mb-1" style={{ color: '#1f2a4e' }}>Unassigned Task</h3>
                   <p className="text-sm text-neutral-500">
                     Task will be available for team members to claim
                   </p>

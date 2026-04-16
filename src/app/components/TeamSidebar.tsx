@@ -22,11 +22,11 @@ export function TeamSidebar({ team, currentUser, currentView, onViewChange }: Te
   ];
 
   return (
-    <div className="w-64 flex flex-col" style={{ backgroundColor: '#2c3e72', borderRight: '1px solid #1e2942' }}>
+    <div className="w-64 flex flex-col" style={{ backgroundColor: '#1f2a4e', borderRight: '1px solid #1e2942' }}>
       <div className="p-6" style={{ borderBottom: '1px solid #1e2942' }}>
         <div className="flex items-center gap-3">
           <div className="size-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#f5f5dc' }}>
-            <CheckSquare className="size-5" style={{ color: '#2c3e72' }} />
+            <CheckSquare className="size-5" style={{ color: '#1f2a4e' }} />
           </div>
           <div>
             <h1 className="font-semibold" style={{ color: '#f5f5dc' }}>TaskFlow</h1>
@@ -75,7 +75,7 @@ export function TeamSidebar({ team, currentUser, currentView, onViewChange }: Te
                     className="size-8 rounded-full object-cover"
                   />
                   {member.id === currentUser.id && (
-                    <div className="absolute -bottom-0.5 -right-0.5 size-3 bg-green-500 border-2" style={{ borderColor: '#2c3e72' }} />
+                    <div className="absolute -bottom-0.5 -right-0.5 size-3 bg-green-500 border-2" style={{ borderColor: '#1f2a4e' }} />
                   )}
                 </div>
                 <div className="flex-1 min-w-0">

@@ -69,7 +69,7 @@ export function DesktopLocationPicker({
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold" style={{ color: '#2c3e72' }}>
+        <h3 className="text-sm font-semibold" style={{ color: '#1f2a4e' }}>
           Location (Optional)
         </h3>
         {!expanded && (
@@ -158,7 +158,7 @@ export function DesktopLocationPicker({
 
           {!position && (
             <div className="text-center py-2 text-xs" style={{ color: '#6b7280' }}>
-              <MapPin className="size-4 mx-auto mb-1" style={{ color: '#2c3e72' }} />
+              <MapPin className="size-4 mx-auto mb-1" style={{ color: '#1f2a4e' }} />
               Click anywhere on the map to drop a pin
             </div>
           )}

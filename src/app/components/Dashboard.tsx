@@ -102,7 +102,7 @@ export function Dashboard({
     <div className="flex-1 overflow-y-auto">
       <div className="p-8">
         <div className="mb-8">
-          <h1 className="text-2xl font-semibold mb-2" style={{ color: '#2c3e72' }}>Dashboard</h1>
+          <h1 className="text-2xl font-semibold mb-2" style={{ color: '#1f2a4e' }}>Dashboard</h1>
           <p style={{ color: '#6b7280' }}>Overview of tasks and recent observations</p>
         </div>
 
@@ -117,7 +117,7 @@ export function Dashboard({
                     <Icon className={`size-5 ${stat.color}`} />
                   </div>
                 </div>
-                <div className="text-3xl font-semibold" style={{ color: '#2c3e72' }}>{stat.value}</div>
+                <div className="text-3xl font-semibold" style={{ color: '#1f2a4e' }}>{stat.value}</div>
               </div>
             );
           })}
@@ -125,7 +125,7 @@ export function Dashboard({
 
         <div className="grid grid-cols-2 gap-6">
           <div>
-            <h2 className="font-semibold mb-4" style={{ color: '#2c3e72' }}>Recent Observations</h2>
+            <h2 className="font-semibold mb-4" style={{ color: '#1f2a4e' }}>Recent Observations</h2>
             <div className="space-y-3 pb-48">
               {recentObservations.length > 0 ? (
                 recentObservations.map(observation => (
@@ -157,7 +157,7 @@ export function Dashboard({
           </div>
 
           <div>
-            <h2 className="font-semibold mb-4" style={{ color: '#2c3e72' }}>Active Tasks</h2>
+            <h2 className="font-semibold mb-4" style={{ color: '#1f2a4e' }}>Active Tasks</h2>
             <div className="space-y-3">
               {inProgressTasks.length > 0 ? (
                 inProgressTasks.map(task => (

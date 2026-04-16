@@ -171,7 +171,7 @@ export function CalendarView({
       {/* Calendar Controls */}
       <div className="px-8 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid #d4d0b8', backgroundColor: 'white' }}>
         <div className="flex items-center gap-4">
-          <h3 className="text-xl font-semibold" style={{ color: '#2c3e72' }}>
+          <h3 className="text-xl font-semibold" style={{ color: '#1f2a4e' }}>
             {getHeaderTitle()}
           </h3>
           <div className="flex gap-1">
@@ -209,7 +209,7 @@ export function CalendarView({
           <button
             onClick={goToToday}
             className="px-3 py-1.5 rounded-lg text-sm font-medium"
-            style={{ backgroundColor: '#f5f5dc', color: '#2c3e72' }}
+            style={{ backgroundColor: '#f5f5dc', color: '#1f2a4e' }}
           >
             Today
           </button>
@@ -219,14 +219,14 @@ export function CalendarView({
           <button
             onClick={() => navigate('prev')}
             className="size-9 flex items-center justify-center rounded-lg hover:bg-neutral-100"
-            style={{ color: '#2c3e72' }}
+            style={{ color: '#1f2a4e' }}
           >
             <ChevronLeft className="size-5" />
           </button>
           <button
             onClick={() => navigate('next')}
             className="size-9 flex items-center justify-center rounded-lg hover:bg-neutral-100"
-            style={{ color: '#2c3e72' }}
+            style={{ color: '#1f2a4e' }}
           >
             <ChevronRight className="size-5" />
           </button>
@@ -274,7 +274,7 @@ export function CalendarView({
                 >
                   <div
                     className="text-sm font-medium mb-1"
-                    style={{ color: today ? '#4dd0e1' : '#2c3e72' }}
+                    style={{ color: today ? '#4dd0e1' : '#1f2a4e' }}
                   >
                     {day}
                   </div>
@@ -327,7 +327,7 @@ export function CalendarView({
                   </div>
                   <div
                     className="text-lg font-bold"
-                    style={{ color: isCurrentDay ? '#4dd0e1' : '#2c3e72' }}
+                    style={{ color: isCurrentDay ? '#4dd0e1' : '#1f2a4e' }}
                   >
                     {date.getDate()}
                   </div>
@@ -381,7 +381,7 @@ export function CalendarView({
           <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-lg p-6" style={{ border: '2px solid #4dd0e1' }}>
               <div className="mb-6">
-                <div className="text-2xl font-bold mb-2" style={{ color: '#2c3e72' }}>
+                <div className="text-2xl font-bold mb-2" style={{ color: '#1f2a4e' }}>
                   Tasks for {currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                 </div>
                 <div className="text-sm" style={{ color: '#6b7280' }}>
@@ -410,7 +410,7 @@ export function CalendarView({
                           style={{ backgroundColor: category ? category.color : '#6b7280' }}
                         />
                         <div className="flex-1 min-w-0">
-                          <div className="font-semibold mb-1" style={{ color: '#2c3e72' }}>
+                          <div className="font-semibold mb-1" style={{ color: '#1f2a4e' }}>
                             {task.title}
                           </div>
                           <div className="text-sm mb-2" style={{ color: '#6b7280' }}>

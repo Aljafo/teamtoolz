@@ -82,7 +82,7 @@ export function MobileLocationPicker({
           <ArrowLeft className="size-5" />
           <span>Back</span>
         </button>
-        <span className="font-medium" style={{ color: '#2c3e72' }}>Location</span>
+        <span className="font-medium" style={{ color: '#1f2a4e' }}>Location</span>
         <button
           onClick={handleSkip}
           className="text-sm"
@@ -115,7 +115,7 @@ export function MobileLocationPicker({
 
           {!position && (
             <div className="bg-white/90 backdrop-blur p-3 rounded-xl text-center text-sm" style={{ color: '#6b7280' }}>
-              <MapPin className="size-5 mx-auto mb-1" style={{ color: '#2c3e72' }} />
+              <MapPin className="size-5 mx-auto mb-1" style={{ color: '#1f2a4e' }} />
               Tap anywhere on the map to drop a pin
             </div>
           )}

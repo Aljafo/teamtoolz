@@ -53,7 +53,7 @@ export function EmailPreview({ onClose }: EmailPreviewProps) {
         <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
           <!-- Header -->
           <tr>
-            <td style="background-color: #2c3e72; padding: 24px; text-align: center;">
+            <td style="background-color: #1f2a4e; padding: 24px; text-align: center;">
               <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600;">Task Assignment</h1>
             </td>
           </tr>
