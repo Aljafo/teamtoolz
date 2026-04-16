@@ -142,7 +142,7 @@ export function MobileContacts({
       <div className="flex">
         <button
           onClick={onBack}
-          className="flex-1 py-3 text-center text-sm font-medium bg-[#f5f5dc] text-[#8b7355]"
+          className="flex-1 py-3 text-center text-sm font-medium bg-[#f5f5dc] text-[#1f2a4e]"
         >
           My Day
         </button>
