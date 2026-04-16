@@ -538,8 +538,8 @@ export default function App() {
     subcategoryId?: string,
     startDate?: Date,
     endDate?: Date,
-    isRecurring?: boolean,
-    recurrencePattern?: RecurrencePattern
+    recurrencePattern?: RecurrencePattern,
+    sourceObservationId?: string
   ) => {
     // Validate external email if provided
     if (assignToExternal && !isValidEmail(assignToExternal)) {
@@ -550,21 +550,35 @@ export default function App() {
     const nextNumber = tasks.length > 0 ? Math.max(...tasks.map(t => t.number)) + 1 : 1;
     const newTaskId = Date.now().toString();
 
-    // Create a placeholder observation for tasks created directly
-    const observationId = `obs-${newTaskId}`;
-    const placeholderObservation: Observation = {
-      id: observationId,
-      number: observations.length + 1,
-      author: currentUser,
-      message: title,
-      photos: photos,
-      attachments: [],
-      timestamp: new Date(),
-      taskIds: [newTaskId],
-      categoryId: categoryId,
-      subcategoryId,
-      location,
-    };
+    let observationId: string;
+
+    // If created from an observation, link to that observation
+    if (sourceObservationId) {
+      observationId = sourceObservationId;
+      // Update the observation to include this new task
+      setObservations(observations.map(o =>
+        o.id === sourceObservationId
+          ? { ...o, taskIds: [...o.taskIds, newTaskId] }
+          : o
+      ));
+    } else {
+      // Create a placeholder observation for tasks created directly
+      observationId = `obs-${newTaskId}`;
+      const placeholderObservation: Observation = {
+        id: observationId,
+        number: observations.length + 1,
+        author: currentUser,
+        message: title,
+        photos: photos,
+        attachments: [],
+        timestamp: new Date(),
+        taskIds: [newTaskId],
+        categoryId: categoryId,
+        subcategoryId,
+        location,
+      };
+      setObservations([...observations, placeholderObservation]);
+    }
 
     const newTask: Task = {
       id: newTaskId,
@@ -585,12 +599,11 @@ export default function App() {
       location,
       startDate,
       endDate,
-      isRecurring: isRecurring || false,
+      isRecurring: recurrencePattern ? true : false,
       recurrencePattern,
     };
 
     setTasks([...tasks, newTask]);
-    setObservations([...observations, placeholderObservation]);
 
     // Update external contacts if new external assignment
     if (assignToExternal) {
@@ -1279,6 +1292,7 @@ export default function App() {
                 messages={messages}
                 externalContacts={externalContacts}
                 onAddObservation={addObservation}
+                onAddTask={addTask}
                 onConvertToTask={convertToTask}
                 onUpdateTaskStatus={updateTaskStatus}
                 onSendMessage={addMessage}
@@ -1321,6 +1335,7 @@ export default function App() {
                 messages={messages}
                 externalContacts={externalContacts}
                 onAddObservation={addObservation}
+                onAddTask={addTask}
                 onConvertToTask={convertToTask}
                 onUpdateTaskStatus={updateTaskStatus}
                 onSendMessage={addMessage}

@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { TrendingUp, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
-import type { Task, Observation, TeamMember, Category, Team, Message, ExternalContact, Subcategory } from '../App';
+import type { Task, Observation, TeamMember, Category, Team, Message, ExternalContact, Subcategory, RecurrencePattern, Location } from '../App';
 import { ObservationCard } from './ObservationCard';
 import { TaskCard } from './TaskCard';
+import { DesktopTaskCreation } from './DesktopTaskCreation';
 
 interface DashboardProps {
   tasks: Task[];
@@ -13,6 +15,21 @@ interface DashboardProps {
   messages: Message[];
   currentUser: TeamMember;
   externalContacts: ExternalContact[];
+  onAddTask: (
+    title: string,
+    description: string,
+    photos: string[],
+    categoryId: string,
+    assignTo?: TeamMember,
+    assignToTeamId?: string,
+    assignToExternal?: string,
+    location?: Location,
+    subcategoryId?: string,
+    startDate?: Date,
+    endDate?: Date,
+    recurrencePattern?: RecurrencePattern,
+    sourceObservationId?: string
+  ) => void;
   onConvertToTask: (observationId: string, assignTo?: TeamMember, assignToTeamId?: string, assignToExternal?: string) => void;
   onUpdateTaskStatus: (taskId: string, status: Task['status']) => void;
   onSendMessage: (content: string, taskId?: string, observationId?: string) => void;
@@ -33,6 +50,7 @@ export function Dashboard({
   messages,
   currentUser,
   externalContacts,
+  onAddTask,
   onConvertToTask,
   onUpdateTaskStatus,
   onSendMessage,
@@ -42,6 +60,8 @@ export function Dashboard({
   onAddObservationAttachment,
   onRemoveObservationAttachment,
 }: DashboardProps) {
+  const [taskCreationObservationId, setTaskCreationObservationId] = useState<string | null>(null);
+
   const pendingTasks = tasks.filter(t => t.status === 'pending');
   const inProgressTasks = tasks.filter(t => t.status === 'in-progress');
   const completedTasks = tasks.filter(t => t.status === 'completed');
@@ -121,6 +141,7 @@ export function Dashboard({
                     currentUser={currentUser}
                     externalContacts={externalContacts}
                     onConvertToTask={onConvertToTask}
+                    onOpenTaskCreation={setTaskCreationObservationId}
                     onSendMessage={onSendMessage}
                     onMarkMessagesAsRead={onMarkMessagesAsRead}
                     onAddAttachment={onAddObservationAttachment}
@@ -166,6 +187,23 @@ export function Dashboard({
           </div>
         </div>
       </div>
+
+      {/* Task Creation Modal from Observation */}
+      {taskCreationObservationId && (
+        <DesktopTaskCreation
+          team={team}
+          teams={teams}
+          categories={categories}
+          subcategories={subcategories}
+          currentUser={currentUser}
+          sourceObservation={observations.find(o => o.id === taskCreationObservationId)}
+          onClose={() => setTaskCreationObservationId(null)}
+          onCreateTask={(title, description, photos, categoryId, assignTo, assignToTeamId, assignToExternal, location, subcategoryId, startDate, endDate, recurrencePattern) => {
+            onAddTask(title, description, photos, categoryId, assignTo, assignToTeamId, assignToExternal, location, subcategoryId, startDate, endDate, recurrencePattern, taskCreationObservationId);
+            setTaskCreationObservationId(null);
+          }}
+        />
+      )}
     </div>
   );
 }

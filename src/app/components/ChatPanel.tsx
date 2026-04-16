@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import type { Observation, TeamMember, Task, Category, Team, Message, ExternalContact, Location, Subcategory } from '../App';
+import type { Observation, TeamMember, Task, Category, Team, Message, ExternalContact, Location, Subcategory, RecurrencePattern } from '../App';
 import { ObservationCard } from './ObservationCard';
 import { Dashboard } from './Dashboard';
 import { DesktopObservationCreation } from './DesktopObservationCreation';
+import { DesktopTaskCreation } from './DesktopTaskCreation';
 
 interface ChatPanelProps {
   observations: Observation[];
@@ -17,6 +18,21 @@ interface ChatPanelProps {
   messages: Message[];
   externalContacts: ExternalContact[];
   onAddObservation: (message: string, photos: string[], categoryId: string, location?: Location, subcategoryId?: string) => void;
+  onAddTask: (
+    title: string,
+    description: string,
+    photos: string[],
+    categoryId: string,
+    assignTo?: TeamMember,
+    assignToTeamId?: string,
+    assignToExternal?: string,
+    location?: Location,
+    subcategoryId?: string,
+    startDate?: Date,
+    endDate?: Date,
+    recurrencePattern?: RecurrencePattern,
+    sourceObservationId?: string
+  ) => void;
   onConvertToTask: (observationId: string, assignTo?: TeamMember, assignToTeamId?: string, assignToExternal?: string) => void;
   onUpdateTaskStatus: (taskId: string, status: Task['status']) => void;
   onSendMessage: (content: string, taskId?: string, observationId?: string) => void;
@@ -39,6 +55,7 @@ export function ChatPanel({
   messages,
   externalContacts,
   onAddObservation,
+  onAddTask,
   onConvertToTask,
   onUpdateTaskStatus,
   onSendMessage,
@@ -50,6 +67,7 @@ export function ChatPanel({
   observationsOnly = false,
 }: ChatPanelProps) {
   const [showObservationCreation, setShowObservationCreation] = useState(false);
+  const [taskCreationObservationId, setTaskCreationObservationId] = useState<string | null>(null);
 
   if (!observationsOnly) {
     return (
@@ -63,6 +81,7 @@ export function ChatPanel({
         messages={messages}
         currentUser={currentUser}
         externalContacts={externalContacts}
+        onAddTask={onAddTask}
         onConvertToTask={onConvertToTask}
         onUpdateTaskStatus={onUpdateTaskStatus}
         onSendMessage={onSendMessage}
@@ -108,6 +127,7 @@ export function ChatPanel({
                 currentUser={currentUser}
                 externalContacts={externalContacts}
                 onConvertToTask={onConvertToTask}
+                onOpenTaskCreation={setTaskCreationObservationId}
                 onSendMessage={onSendMessage}
                 onMarkMessagesAsRead={onMarkMessagesAsRead}
                 onAddAttachment={onAddObservationAttachment}
@@ -129,6 +149,23 @@ export function ChatPanel({
           onCreateObservation={(message, photos, categoryId, location, subcategoryId) => {
             onAddObservation(message, photos, categoryId, location, subcategoryId);
             setShowObservationCreation(false);
+          }}
+        />
+      )}
+
+      {/* Task Creation Modal from Observation */}
+      {taskCreationObservationId && (
+        <DesktopTaskCreation
+          team={team}
+          teams={teams}
+          categories={categories}
+          subcategories={subcategories}
+          currentUser={currentUser}
+          sourceObservation={observations.find(o => o.id === taskCreationObservationId)}
+          onClose={() => setTaskCreationObservationId(null)}
+          onCreateTask={(title, description, photos, categoryId, assignTo, assignToTeamId, assignToExternal, location, subcategoryId, startDate, endDate, recurrencePattern) => {
+            onAddTask(title, description, photos, categoryId, assignTo, assignToTeamId, assignToExternal, location, subcategoryId, startDate, endDate, recurrencePattern, taskCreationObservationId);
+            setTaskCreationObservationId(null);
           }}
         />
       )}

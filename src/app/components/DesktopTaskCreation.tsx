@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { X, Camera, Users, Mail } from 'lucide-react';
-import type { TeamMember, Category, Team, Location, Subcategory, RecurrencePattern } from '../App';
+import type { TeamMember, Category, Team, Location, Subcategory, RecurrencePattern, Observation } from '../App';
 import { DesktopLocationPicker } from './DesktopLocationPicker';
 
 interface DesktopTaskCreationProps {
@@ -9,6 +9,7 @@ interface DesktopTaskCreationProps {
   categories: Category[];
   subcategories: Subcategory[];
   currentUser: TeamMember;
+  sourceObservation?: Observation;
   onClose: () => void;
   onCreateTask: (
     title: string,
@@ -35,17 +36,25 @@ export function DesktopTaskCreation({
   categories,
   subcategories,
   currentUser,
+  sourceObservation,
   onClose,
   onCreateTask,
 }: DesktopTaskCreationProps) {
+  // Pre-populate from observation if provided
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [photos, setPhotos] = useState<string[]>([]);
+  const [description, setDescription] = useState(sourceObservation?.message || '');
+  const [photos, setPhotos] = useState<string[]>(sourceObservation?.photos || []);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    categories.length > 0 ? categories[0] : null
+    sourceObservation
+      ? categories.find(c => c.id === sourceObservation.categoryId) || (categories.length > 0 ? categories[0] : null)
+      : (categories.length > 0 ? categories[0] : null)
   );
-  const [selectedSubcategory, setSelectedSubcategory] = useState<Subcategory | null>(null);
-  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<Subcategory | null>(
+    sourceObservation && sourceObservation.subcategoryId
+      ? subcategories.find(sc => sc.id === sourceObservation.subcategoryId) || null
+      : null
+  );
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(sourceObservation?.location || null);
   const [assignmentType, setAssignmentType] = useState<AssignmentType>('person');
   const [selectedPerson, setSelectedPerson] = useState<TeamMember | null>(null);
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
