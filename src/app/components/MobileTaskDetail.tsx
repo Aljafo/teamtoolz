@@ -6,6 +6,7 @@ import { ChatMessages } from './ChatMessages';
 import { ChatInput } from './ChatInput';
 import { MobileFileUpload } from './MobileFileUpload';
 import { LocationMap } from './LocationMap';
+import { MobileLayeredIcon } from './MobileLayeredIcon';
 
 interface MobileTaskDetailProps {
   task: Task;
@@ -102,7 +103,7 @@ export function MobileTaskDetail({
         {/* Top Bar */}
         <div className="flex items-center gap-3 px-4 py-3">
           <button onClick={onBack} className="size-9 flex items-center justify-center rounded-full hover:bg-white/10">
-            <ArrowLeft className="size-5" />
+            <MobileLayeredIcon Icon={ArrowLeft} size={20} />
           </button>
           <div className="flex-1">
             <div className="text-xs font-mono opacity-70">TSK-{String(task.number).padStart(3, '0')}</div>
@@ -112,7 +113,7 @@ export function MobileTaskDetail({
             onClick={() => setShowChat(!showChat)}
             className="relative size-9 flex items-center justify-center rounded-full hover:bg-white/10"
           >
-            <MessageSquare className="size-5" />
+            <MobileLayeredIcon Icon={MessageSquare} size={20} />
             {unreadCount > 0 && (
               <span className="absolute -top-1 -right-1 size-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                 {unreadCount}
@@ -217,7 +218,7 @@ export function MobileTaskDetail({
                         onClick={() => onCallContact(task.createdBy)}
                         className="size-9 flex items-center justify-center active:opacity-70"
                       >
-                        <Phone className="size-5 text-[#4dd0e1]" />
+                        <MobileLayeredIcon Icon={Phone} size={20} />
                       </button>
                     )}
                     {onMessageContact && (
@@ -225,7 +226,7 @@ export function MobileTaskDetail({
                         onClick={() => onMessageContact(task.createdBy)}
                         className="size-9 flex items-center justify-center active:opacity-70"
                       >
-                        <MessageSquare className="size-5 text-[#4dd0e1]" fill="#4dd0e1" />
+                        <MobileLayeredIcon Icon={MessageSquare} size={20} />
                       </button>
                     )}
                   </div>
@@ -251,7 +252,7 @@ export function MobileTaskDetail({
                           onClick={() => onCallContact(task.assignedTo!)}
                           className="size-9 flex items-center justify-center active:opacity-70"
                         >
-                          <Phone className="size-5 text-[#4dd0e1]" />
+                          <MobileLayeredIcon Icon={Phone} size={20} />
                         </button>
                       )}
                       {onMessageContact && (
@@ -259,7 +260,7 @@ export function MobileTaskDetail({
                           onClick={() => onMessageContact(task.assignedTo!)}
                           className="size-9 flex items-center justify-center active:opacity-70"
                         >
-                          <MessageSquare className="size-5 text-[#4dd0e1]" fill="#4dd0e1" />
+                          <MobileLayeredIcon Icon={MessageSquare} size={20} />
                         </button>
                       )}
                     </div>

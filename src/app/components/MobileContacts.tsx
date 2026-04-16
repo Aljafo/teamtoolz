@@ -1,6 +1,7 @@
-import { ArrowLeft, Search, Phone, MessageSquare, Plus, User, Users } from 'lucide-react';
+import { ArrowLeft, Search, Phone, MessageSquare, Plus, User, Users, UsersRound } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { TeamMember, Message, Team } from '../App';
+import { MobileLayeredIcon } from './MobileLayeredIcon';
 
 interface MobileContactsProps {
   team: TeamMember[];
@@ -120,23 +121,13 @@ export function MobileContacts({
 
       {/* Icons Row */}
       <div className="flex items-center justify-between px-4 py-2 bg-[#2c3e72]">
-        {/* Contact Icon - Two overlapping people */}
+        {/* Contact Icon */}
         <div className="relative flex items-center">
           <button
             onClick={onBack}
-            className="relative active:opacity-70 transition-opacity"
-            style={{ width: '46px', height: '34px' }}
+            className="relative p-2 active:opacity-70 transition-opacity"
           >
-            {/* Right person (purple) - positioned higher and behind */}
-            <div className="absolute right-0 top-0 flex flex-col items-center z-0">
-              <div className="size-4 rounded-full bg-[#9c88ff]" />
-              <div className="w-6 h-5 bg-[#9c88ff] rounded-t-full mt-0.5" />
-            </div>
-            {/* Left person (jade) - overlaps on top and slightly lower */}
-            <div className="absolute left-0 top-1 flex flex-col items-center z-10">
-              <div className="size-4 rounded-full bg-[#4dd0e1]" />
-              <div className="w-6 h-5 bg-[#4dd0e1] rounded-t-full mt-0.5" />
-            </div>
+            <MobileLayeredIcon Icon={UsersRound} size={32} />
           </button>
         </div>
 
@@ -169,7 +160,7 @@ export function MobileContacts({
       <div className="px-4 py-4 flex items-center justify-between">
         <h1 className="text-xl font-semibold text-white">Contacts</h1>
         <button className="size-9 flex items-center justify-center rounded-full hover:bg-white/10">
-          <Search className="size-6 text-white" />
+          <MobileLayeredIcon Icon={Search} size={24} />
         </button>
       </div>
 
@@ -204,13 +195,13 @@ export function MobileContacts({
                       onClick={() => onCallContact(contact)}
                       className="size-10 flex items-center justify-center"
                     >
-                      <Phone className="size-6 text-[#4dd0e1]" />
+                      <MobileLayeredIcon Icon={Phone} size={24} />
                     </button>
                     <button
                       onClick={() => onMessageContact(contact)}
                       className="size-10 flex items-center justify-center relative"
                     >
-                      <MessageSquare className="size-6 text-[#4dd0e1]" fill="#4dd0e1" />
+                      <MobileLayeredIcon Icon={MessageSquare} size={24} />
                       {unreadCount > 0 && (
                         <span className="absolute -top-1 -right-1 size-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                           {unreadCount}
@@ -247,7 +238,7 @@ export function MobileContacts({
                       onClick={() => onMessageTeam(teamObj)}
                       className="size-10 flex items-center justify-center relative"
                     >
-                      <MessageSquare className="size-6 text-[#9c88ff]" fill="#9c88ff" />
+                      <MobileLayeredIcon Icon={MessageSquare} size={24} primaryColor="#9c88ff" secondaryColor="#4dd0e1" />
                       {unreadCount > 0 && (
                         <span className="absolute -top-1 -right-1 size-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                           {unreadCount}
@@ -263,7 +254,7 @@ export function MobileContacts({
 
         {/* Add Contact FAB */}
         <button className="absolute bottom-6 right-6 size-14 bg-blue-600 rounded-full flex items-center justify-center shadow-xl">
-          <Plus className="size-8 text-white stroke-[3]" />
+          <MobileLayeredIcon Icon={Plus} size={32} />
         </button>
       </div>
 

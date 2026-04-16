@@ -3,6 +3,7 @@ import { ArrowLeft, Camera, Check, Users, Mail, Calendar, Repeat } from 'lucide-
 import { motion, AnimatePresence } from 'motion/react';
 import type { TeamMember, Category, Team, Location, Subcategory, RecurrencePattern } from '../App';
 import { MobileLocationPicker } from './MobileLocationPicker';
+import { MobileLayeredIcon } from './MobileLayeredIcon';
 
 interface MobileTaskCreationProps {
   team: TeamMember[];
@@ -138,7 +139,7 @@ export function MobileTaskCreation({
       {/* Header */}
       <div className="px-4 py-3 flex items-center justify-between border-b border-neutral-200">
         <button onClick={onBack} className="flex items-center gap-2 text-neutral-700">
-          <ArrowLeft className="size-5" />
+          <MobileLayeredIcon Icon={ArrowLeft} size={20} />
           <span>Cancel</span>
         </button>
         <span className="font-medium" style={{ color: '#2c3e72' }}>New Task</span>
@@ -199,7 +200,7 @@ export function MobileTaskCreation({
                 onClick={() => fileInputRef.current?.click()}
                 className="w-full py-3 border-2 border-dashed border-neutral-300 rounded-xl flex items-center justify-center gap-2 text-neutral-600 mb-3"
               >
-                <Camera className="size-5" />
+                <MobileLayeredIcon Icon={Camera} size={20} />
                 <span>Add Photo</span>
               </button>
 

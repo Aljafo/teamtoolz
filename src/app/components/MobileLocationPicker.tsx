@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { ArrowLeft, MapPin, Navigation } from 'lucide-react';
 import { motion } from 'motion/react';
 import { SimpleMap, type Location } from './SimpleMap';
+import { MobileLayeredIcon } from './MobileLayeredIcon';
 
 export type { Location };
 
@@ -79,7 +80,7 @@ export function MobileLocationPicker({
       {/* Header */}
       <div className="px-4 py-3 flex items-center justify-between border-b border-neutral-200">
         <button onClick={onBack} className="flex items-center gap-2 text-neutral-700">
-          <ArrowLeft className="size-5" />
+          <MobileLayeredIcon Icon={ArrowLeft} size={20} />
           <span>Back</span>
         </button>
         <span className="font-medium" style={{ color: '#2c3e72' }}>Location</span>
